@@ -4,7 +4,7 @@ export function navSection(nav_section_id, nav_section_title) {
     var nav_section_HTML = document.importNode(nav_section_template, true);
 
     // place the nav section id and title inside the template
-    nav_section_HTML.querySelector(".nav-item-wrapper").id = nav_section_id;
+    nav_section_HTML.querySelector(".nav-item").id = nav_section_id;
     nav_section_HTML.querySelector(".navbar-vertical-label").textContent = nav_section_title;
 
     return nav_section_HTML;
@@ -44,7 +44,7 @@ export function placeNavSectionIntoVerticalNavBar(nav_section_HTML) {
 }
 
 export function placeNavItemsContainerIntoNavSection(nav_items_container_HTML, nav_section_id) {
-    document.getElementById(nav_section_id).replaceWith(nav_items_container_HTML);
+    document.getElementById(nav_section_id).appendChild(nav_items_container_HTML);
 }
 
 export function placeNavItemIntoNavItemsContainer(nav_item_HTML, nav_items_container_id) {
