@@ -1,5 +1,7 @@
-import { navSection, placeNavSectionIntoVerticalNavBar, navItemsContainer, placeNavItemsContainerIntoNavSection} from "./build_sdk_index.js";
-import { navItem, placeNavItemIntoNavItemsContainer} from "./build_sdk_index.js";
+import {IconHTML} from "./build_sdk_index.js"
+import {navSection, placeNavSectionIntoVerticalNavBar} from "./build_sdk_index.js"
+import {navItemsContainer, placeNavItemsContainerIntoNavSection} from "./build_sdk_index.js";
+import {navItem, placeNavItemIntoNavItemsContainer} from "./build_sdk_index.js";
 
 function buildNav() {
     // create a nav section html
@@ -9,7 +11,7 @@ function buildNav() {
     placeNavSectionIntoVerticalNavBar(nav_section_HTML);
 
     // create a nav items container and place it into the nav section
-    var nav_items_container_HTML = navItemsContainer("nav-items-container-1", "nav items container");
+    var nav_items_container_HTML = navItemsContainer("nav-items-container-1", IconHTML.shopping_cart, "nav items container");
     placeNavItemsContainerIntoNavSection(nav_items_container_HTML, "nav-section-1")
 
     // create a nav item and place it into the nav items container

@@ -1,3 +1,7 @@
+export const IconHTML = {
+    shopping_cart: '<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>'
+}
+
 export function navSection(nav_section_id, nav_section_title) {
     // get the nav section template html
     var nav_section_template = document.getElementById("nav-section-template").content;
@@ -10,15 +14,16 @@ export function navSection(nav_section_id, nav_section_title) {
     return nav_section_HTML;
 }
 
-export function navItemsContainer(nav_items_container_id, nav_items_container_heading) {
+export function navItemsContainer(nav_items_container_id, nav_items_container_icon_HTML, nav_items_container_heading) {
     // get the nav items container template html
     var nav_items_container_template = document.getElementById("nav_items_container_template").content;
     var nav_items_container_HTML = document.importNode(nav_items_container_template, true);
 
-    // place the nav items container id and heading inside the template
+    // place the nav items container id, icon, and heading inside the template
     nav_items_container_HTML.querySelector(".nav.collapse.parent").id = nav_items_container_id;
     nav_items_container_HTML.querySelector(".nav-link.dropdown-indicator.label-1").href = "#" + nav_items_container_id;
     nav_items_container_HTML.querySelector(".nav-link.dropdown-indicator.label-1").ariaControls = nav_items_container_id;
+    nav_items_container_HTML.querySelector(".nav-link-icon").innerHTML += nav_items_container_icon_HTML;
     nav_items_container_HTML.querySelector(".nav-link-text").textContent = nav_items_container_heading;
 
     return nav_items_container_HTML;
