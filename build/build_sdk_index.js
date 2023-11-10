@@ -1,3 +1,18 @@
+
+/*
+@todo
+I don't like using this function to get icon code. The orginal HTML templates we bought denotes icons using classes in DIVs.
+There's some kind of page scrit=pt that converts those DIVs into SVG tags (with the appropriate content) based on parsing the content
+of the icon DIVs. This allows the page creators to create icons using much cleaner code.
+
+Because we separate this JS code into modules, we have to link to this code in such a way that these modules are loaded last. These
+modules are loaded after the code that generates SVG tags. That means that we have to generate those tags ourselves in this code.
+The solution is to maintain our own mapping between icon names and detailed SVG tags. We have to get those SVG details by scouring
+through the HTML source of different pages after they have been generated. It's not a solution that I like. If you can think of somehting
+better, please replace what I've done.
+
+Jerry Overton, jerry@appliedai.studio
+*/
 export const IconHTML = {
     shopping_cart: '<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>'
 }

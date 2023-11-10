@@ -1,0 +1,52 @@
+﻿{
+  "menu": [
+      {
+          "title": "Nav Section 1",
+          "icon": "",
+          "children": [
+              {
+                  "title": "Nav Item 1.1",
+                  "href": "/path/to/page-1.1",
+                  "icon": ""
+              },
+              {
+                  "title": "Nav Item 1.2",
+                  "href": "/path/to/page-1.2",
+                  "icon": ""
+              }
+          ]
+      },
+      {
+          "title": "Nav Section 2",
+          "icon": "",
+          "children": [
+              {
+                  "title": "Nav Item 2.1",
+                  "href": "/path/to/page-2.1",
+                  "icon": ""
+              },
+              {
+                  "title": "Nav Item 2.2",
+                  "href": "/path/to/page-2.2",
+                  "icon": ""
+              }
+          ]
+      },
+      {
+          "title": "Nav Section 3",
+          "icon": "",
+          "children": [
+              {
+                  "title": "Nav Item 3.1",
+                  "href": "/path/to/page-3.1",
+                  "icon": ""
+              },
+              {
+                  "title": "Nav Item 3.2",
+                  "href": "/path/to/page-3.2",
+                  "icon": ""
+              }
+          ]
+      }
+  ]
+}

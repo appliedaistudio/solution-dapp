@@ -1,3 +1,4 @@
+import menu_json from "./build_index_nav.json" assert { type: 'json' };;
 import {IconHTML} from "./build_sdk_index.js"
 import {navSection, placeNavSectionIntoVerticalNavBar} from "./build_sdk_index.js"
 import {navItemsContainer, placeNavItemsContainerIntoNavSection} from "./build_sdk_index.js";
@@ -19,7 +20,12 @@ function buildNav() {
     placeNavItemIntoNavItemsContainer(nav_item_HTML, "nav-items-container-1");
 }
 
+function buildNavFromJSON(){
+    alert(menu_json);
+}
+
 window.addEventListener("load", function() {
+    buildNavFromJSON();
     buildNav();
 
 });
