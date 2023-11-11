@@ -70,3 +70,41 @@ export function placeNavItemsContainerIntoNavSection(nav_items_container_HTML, n
 export function placeNavItemIntoNavItemsContainer(nav_item_HTML, nav_items_container_id) {
     document.getElementById(nav_items_container_id).appendChild(nav_item_HTML);
 }
+
+export function buildNavFromJSON(menu){
+
+    // identify the list of nav sections
+    let nav_sections = menu['nav-sections'];
+
+    // step through each nav section
+    for (let i = 0; i <  nav_sections.length; i++) {
+        // create a nav section title
+        let nav_section = nav_sections[i];
+        let nav_section_title = nav_section.title
+
+        // create a nav section id
+        var nav_section_id = nav_section_title + "-" + i
+
+        // create a nav section html
+        var nav_section_HTML = navSection(nav_section_id, nav_section_title);
+
+        // place the nav section html into the vertical nav bar
+        placeNavSectionIntoVerticalNavBar(nav_section_HTML);
+
+        // step through each nav items container in the current nav section
+        let nav_items_containers = nav_section["nav-items-containers"]
+        for (let j = 0; j < nav_items_containers.length; j++) {
+            // get the properties of the nav items container
+            let nav_items_container_title = nav_items_containers[j].title;
+            let nav_items_container_href = nav_items_containers[j].href;
+            let nav_items_container_icon = IconHTML[nav_items_containers[j].icon];
+            var nav_items_container_id = nav_items_container_title + "-" + j;
+
+            // create a nav items container and place it into the nav section
+            // TODO: MANAGE HREF
+            var nav_items_container_HTML = navItemsContainer(nav_items_container_id, nav_items_container_icon, nav_items_container_title);
+            placeNavItemsContainerIntoNavSection(nav_items_container_HTML, nav_section_id);
+
+        }
+    }
+}

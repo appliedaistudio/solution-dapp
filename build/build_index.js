@@ -3,6 +3,7 @@ import {IconHTML} from "./build_sdk_index.js"
 import {navSection, placeNavSectionIntoVerticalNavBar} from "./build_sdk_index.js"
 import {navItemsContainer, placeNavItemsContainerIntoNavSection} from "./build_sdk_index.js";
 import {navItem, placeNavItemIntoNavItemsContainer} from "./build_sdk_index.js";
+import {buildNavFromJSON} from "./build_sdk_index.js";
 
 function buildNav() {
     // create a nav section html
@@ -20,12 +21,8 @@ function buildNav() {
     placeNavItemIntoNavItemsContainer(nav_item_HTML, "nav-items-container-1");
 }
 
-function buildNavFromJSON(){
-    alert(menu_json);
-}
-
 window.addEventListener("load", function() {
-    buildNavFromJSON();
+    buildNavFromJSON(menu_json);
     buildNav();
 
 });
