@@ -1,13 +1,24 @@
 ﻿{
-  "nav-sections": [
+  "nav_sections": [
       {
           "title": "Nav Section 1",
           "icon": "",
-          "nav-items-containers": [
+          "nav_items_containers": [
               {
                   "title": "Nav Item 1.1",
-                  "href": "/path/to/page-1.1",
-                  "icon": "shopping_cart"
+                  "icon": "shopping_cart",
+                  "nav_items": [
+                    {
+                      "title": "Nav Item 1.1.1",
+                      "href": "/path/to/page-1.1.1",
+                      "icon": ""
+                    },
+                    {
+                      "title": "Nav Item 1.1.2",
+                      "href": "/path/to/page-1.1.2",
+                      "icon": ""
+                    }
+                  ]
               },
               {
                   "title": "Nav Item 1.2",
@@ -19,7 +30,7 @@
       {
           "title": "Nav Section 2",
           "icon": "",
-          "nav-items-containers": [
+          "nav_items_containers": [
               {
                   "title": "Nav Item 2.1",
                   "href": "/path/to/page-2.1",
@@ -35,7 +46,7 @@
       {
           "title": "Nav Section 3",
           "icon": "",
-          "nav-items-containers": [
+          "nav_items_containers": [
               {
                   "title": "Nav Item 3.1",
                   "href": "/path/to/page-3.1",
