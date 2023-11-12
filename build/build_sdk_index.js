@@ -1,4 +1,8 @@
 
+const __author__ = "Jerry Overton"
+const __copyright__ = "Copyright (C) 2023 appliedAIstudio"
+const __version__ = "0.1"
+
 /*
 @todo
 I don't like using this function to get icon code. The orginal HTML templates we bought denotes icons using classes in DIVs.
