@@ -87,9 +87,7 @@ function createIDfromTitleAndIndex(title, index){
     return id;
 }
 
-
-// REFACTOR THIS FUNCTION INTO SMALLER COMPOSITE FUNCTIONS
-export function buildNavFromJSON(menu){
+export function buildMenuFromJSON(menu){
 
     // identify the list of nav sections
     let nav_sections = menu['nav_sections'];
@@ -110,39 +108,49 @@ export function buildNavFromJSON(menu){
         placeNavSectionIntoVerticalNavBar(nav_section_HTML);
 
         // if the current nav section contains nav items containers
-        // step through each nav items container in the current nav section
         if (nav_section.nav_items_containers){
-            let nav_items_containers = nav_section["nav_items_containers"]
-            for (let j = 0; j < nav_items_containers.length; j++) {
-                // get the properties of the nav items container
-                let nav_items_container = nav_items_containers[j];
-                let nav_items_container_title = nav_items_container.title;
-                let nav_items_container_icon = IconHTML[nav_items_container.icon];
-                var nav_items_container_id = createIDfromTitleAndIndex(nav_items_container_title, j);
+            buildNavItemsContainers(nav_section);
 
-                // create a nav items container and place it into the nav section
-                var nav_items_container_HTML = navItemsContainer(nav_items_container_id, nav_items_container_icon, nav_items_container_title);
-                placeNavItemsContainerIntoNavSection(nav_items_container_HTML, nav_section_id);
+        }
+    }
 
-                // if the current nav items container has nav items
-                // step through each nav item in the current nav items container
-                if (nav_items_container.nav_items) {
-                    let nav_items = nav_items_container["nav_items"];
-                    for (let k = 0; k < nav_items.length; k++) {
+    function buildNavItemsContainers(nav_section) {
+        // step through each nav items container in the current nav section
 
-                        // get the properties of the nav item
-                        let nav_item = nav_items[k];
-                        let nav_item_title = nav_item.title;
-                        let nav_item_href= nav_item.href;
+        let nav_items_containers = nav_section["nav_items_containers"]
+        for (let j = 0; j < nav_items_containers.length; j++) {
+            // get the properties of the nav items container
+            let nav_items_container = nav_items_containers[j];
+            let nav_items_container_title = nav_items_container.title;
+            let nav_items_container_icon = IconHTML[nav_items_container.icon];
+            var nav_items_container_id = createIDfromTitleAndIndex(nav_items_container_title, j);
 
-                        // create a nav item and place it into the nav items container
-                        var nav_item_HTML = navItem(nav_item_title, nav_item_href);
-                        placeNavItemIntoNavItemsContainer(nav_item_HTML, nav_items_container_id);
-                    }
-                }
+            // create a nav items container and place it into the nav section
+            var nav_items_container_HTML = navItemsContainer(nav_items_container_id, nav_items_container_icon, nav_items_container_title);
+            placeNavItemsContainerIntoNavSection(nav_items_container_HTML, nav_section_id);
 
+            // if the current nav items container has nav items
+            if (nav_items_container.nav_items) {
+                buildNavItems(nav_items_container, nav_items_container_id);
             }
 
+        }
+    }
+
+    function buildNavItems(nav_items_container, nav_items_container_id) {
+        // step through each nav item in the current nav items container
+
+        let nav_items = nav_items_container["nav_items"];
+        for (let k = 0; k < nav_items.length; k++) {
+
+            // get the properties of the nav item
+            let nav_item = nav_items[k];
+            let nav_item_title = nav_item.title;
+            let nav_item_href = nav_item.href;
+
+            // create a nav item and place it into the nav items container
+            var nav_item_HTML = navItem(nav_item_title, nav_item_href);
+            placeNavItemIntoNavItemsContainer(nav_item_HTML, nav_items_container_id);
         }
     }
 }
