@@ -114,6 +114,33 @@
     </li>
   </template>
 
+  <!--search results header template-->
+  <template id="search_results_header_template">
+    <hr class="text-200 my-0" />
+    <h6 class="dropdown-header text-1000 fs--1 border-bottom border-200 py-2 lh-sm" id="header">HEADER TEXT HERE</h6>
+  </template>
+
+  <!--search results set template-->
+  <template id="search_results_set_template">
+    <div class="py-2">
+    </div>
+  </template>
+
+  <!--search result template-->
+  <template id="search_result_template">
+    <a class="dropdown-item py-2 d-flex align-items-center" href="apps/e-commerce/landing/product-details.html">
+      <div class="file-thumbnail me-2">
+        <img class="h-100 w-100 fit-cover rounded-3" src="assets/img/products/60x60/3.png" alt="" />
+      </div>
+      <div class="flex-1">
+        <h6 class="mb-0 text-1000 title">MacBook Air - 13″</h6>
+        <p class="fs--2 mb-0 d-flex text-700">
+          <span class="fw-medium text-600">8GB Memory - 1.6GHz - 128GB Storage</span>
+        </p>
+      </div>
+    </a>
+  </template>
+
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
@@ -160,7 +187,7 @@
             </div>
             <div class="dropdown-menu border border-300 font-base start-0 py-0 overflow-hidden w-100">
               <div class="scrollbar-overlay" style="max-height: 30rem;">
-                <div class="list pb-3">
+                <div class="list pb-3" id="search-results">
                   <h6 class="dropdown-header text-1000 fs--2 py-2">24 <span class="text-500">results</span></h6>
                   <hr class="text-200 my-0" />
                   <h6 class="dropdown-header text-1000 fs--1 border-bottom border-200 py-2 lh-sm">Recently Searched </h6>

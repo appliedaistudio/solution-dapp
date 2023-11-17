@@ -83,10 +83,10 @@ function createIDfromTitleAndIndex(title, index){
     return id;
 }
 
-export function buildMenuFromJSON(menu){
+export function buildMenuFromJSON(menu_json){
 
     // identify the list of nav sections
-    let nav_sections = menu['nav_sections'];
+    let nav_sections = menu_json['nav_sections'];
 
     // step through each nav section
     for (let i = 0; i <  nav_sections.length; i++) {
@@ -149,6 +149,58 @@ export function buildMenuFromJSON(menu){
             placeNavItemIntoNavItemsContainer(nav_item_HTML, nav_items_container_id);
         }
     }
+}
+
+function buildSearchResultHeader(header_title) {
+    // get the search result title template html
+    var search_results_header_template = document.getElementById("search_results_header_template").content;
+    var search_results_header_HTML = document.importNode(search_results_header_template, true);
+
+    // set the title of the search results header
+    search_results_header_HTML.getElementById("header").textContent = header_title;
+
+    // place the header into the search results
+    document.getElementById("search-results").appendChild(search_results_header_HTML);
+}
+
+function buildSearchResultsSet(results_set_id) {
+    // get the search results set template html
+    var search_results_set_template = document.getElementById("search_results_set_template").content;
+    var search_results_set_HTML = document.importNode(search_results_set_template, true);
+
+    // set the id of the result set
+    search_results_set_HTML.querySelector("div").id = results_set_id
+
+    // place the result set into the search results
+    document.getElementById("search-results").appendChild(search_results_set_HTML);
+}
+
+function searchResultHTML(icon, href, title, content) {
+    // get the search result template html
+    var search_result_template = document.getElementById("search_result_template").content;
+    var search_result_HTML = document.importNode(search_result_template, true);
+
+    // return the search result html
+    return search_result_HTML;
+}
+
+function placeSearchResultIntoSearchResultsSet(search_result_HTML, results_set_id) {
+    document.getElementById(results_set_id).appendChild(search_result_HTML);
+}
+
+export function buildSearchBarFromJSON(search_bar_json){
+    // build a search results header
+    buildSearchResultHeader("BAR");
+
+    // build a search results set
+    buildSearchResultsSet("foobar_results")
+
+    // place search results into the search results set
+    var search_result_HTML = searchResultHTML("icon", "href", "title", "content");
+    placeSearchResultIntoSearchResultsSet(search_result_HTML, "foobar_results");
+
+    var search_result2_HTML = searchResultHTML("icon", "href", "title", "content");
+    placeSearchResultIntoSearchResultsSet(search_result2_HTML, "foobar_results");
 }
 
 export function renderPage () {
