@@ -180,6 +180,12 @@ function searchResultHTML(icon, href, title, content) {
     var search_result_template = document.getElementById("search_result_template").content;
     var search_result_HTML = document.importNode(search_result_template, true);
 
+    //set the search result properties
+    search_result_HTML.querySelector("img").src = icon;
+    search_result_HTML.querySelector("a").href = href;
+    search_result_HTML.querySelector("h6").textContent = title;
+    search_result_HTML.querySelector("span").textContent = content;
+
     // return the search result html
     return search_result_HTML;
 }
@@ -189,18 +195,47 @@ function placeSearchResultIntoSearchResultsSet(search_result_HTML, results_set_i
 }
 
 export function buildSearchBarFromJSON(search_bar_json){
-    // build a search results header
-    buildSearchResultHeader("BAR");
+    // identify the list of search result headers
+    let search_result_headers = search_bar_json['search_result_headers'];
 
-    // build a search results set
-    buildSearchResultsSet("foobar_results")
+    // step through each search result header
+    for (let i = 0; i <  search_result_headers.length; i++) {
+        
+        // get the title of the search result header
+        let search_result_header = search_result_headers[i];
+        let search_result_header_title = search_result_header.title;
+        
+        // build a search results header
+        buildSearchResultHeader(search_result_header_title);
 
-    // place search results into the search results set
-    var search_result_HTML = searchResultHTML("icon", "href", "title", "content");
-    placeSearchResultIntoSearchResultsSet(search_result_HTML, "foobar_results");
+        // if the current search result header has a result set
+        if (search_result_header.search_results) {
+            buildSearchResults(search_result_header_title, search_result_header.search_results);
+        }
 
-    var search_result2_HTML = searchResultHTML("icon", "href", "title", "content");
-    placeSearchResultIntoSearchResultsSet(search_result2_HTML, "foobar_results");
+    }
+
+    function buildSearchResults(search_result_header_title, search_results) {
+        // create a search result set
+        const search_result_set_id = createIDfromTitleAndIndex(search_result_header_title, 0)
+        buildSearchResultsSet(search_result_set_id);
+
+        // step through the search results and place them into the search result set
+        for (let i = 0; i < search_results.length; i++) {
+            // get the properties of the current search result
+            let search_result = search_results[i];
+            let search_result_icon = search_result.icon;
+            let search_result_href = search_result.href;
+            let search_result_title = search_result.title;
+            let search_result_content = search_result.content;
+
+            // add the search result into the search result set
+            var search_result_HTML = searchResultHTML(search_result_icon, search_result_href, search_result_title, search_result_content);
+            placeSearchResultIntoSearchResultsSet(search_result_HTML, search_result_set_id);
+        }
+            
+    }
+
 }
 
 export function renderPage () {
