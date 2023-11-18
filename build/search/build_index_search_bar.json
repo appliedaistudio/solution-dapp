@@ -12,7 +12,7 @@
                 {
                     "icon": "icon",
                     "href": "href",
-                    "title": "Resutl 1.2",
+                    "title": "Result 1.2",
                     "content": "content"
                 }
             ]
@@ -21,7 +21,21 @@
             "title": "Header 2"
         },
         {
-            "title": "Header 3"
+            "title": "Header 3",
+            "search_results": [
+                {
+                    "icon": "icon",
+                    "href": "href",
+                    "title": "Result 3.1",
+                    "content": "content of result 3.1"
+                },
+                {
+                    "icon": "icon",
+                    "href": "href",
+                    "title": "Result 3.2",
+                    "content": "content"
+                }
+            ]
         }
     ]
 }
