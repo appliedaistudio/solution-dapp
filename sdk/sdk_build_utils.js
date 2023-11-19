@@ -18,3 +18,10 @@ export function createIDfromTitleAndIndex(title, index){
 
     return id;
 }
+
+export function iconNode (icon_name) {
+    // create and retuern a new icon span element
+    const icon_span = document.createElement("span");
+    icon_span.setAttribute("data-feather", icon_name);
+    return icon_span
+}

@@ -3,14 +3,8 @@ const __author__ = "Jerry Overton"
 const __copyright__ = "Copyright (C) 2023 appliedAIstudio"
 const __version__ = "0.1"
 
-import {createIDfromTitleAndIndex} from "./sdk_build_utils.js"
+import {createIDfromTitleAndIndex, iconNode} from "./sdk_build_utils.js"
 
-function iconNode (icon_name) {
-    // create and retuern a new icon span element
-    const icon_span = document.createElement("span");
-    icon_span.setAttribute("data-feather", icon_name);
-    return icon_span
-}
 
 function navSection(nav_section_id, nav_section_title) {
     // get the nav section template html
