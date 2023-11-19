@@ -10,11 +10,16 @@ import {buildMenuFromJSON} from "../../sdk/sdk_build_menu.js";
 import search_bar_json from "../search/build_index_search_bar.json" assert { type: 'json' };
 import {buildSearchBarFromJSON} from "../../sdk/sdk_build_search.js";
 
+// settings options
+import settings_options_json from "../settings/build_settings_options.json" assert { type: 'json' };
+import { buildSettingsOptionsFromJSON} from "../../sdk/sdk_build_settings_options.js";
+
 // post processing sdk
 import {renderPage } from "../../sdk/sdk_page_post_process.js";
 
 window.addEventListener("load", function() {
     buildMenuFromJSON(menu_json);
     buildSearchBarFromJSON(search_bar_json);
+    buildSettingsOptionsFromJSON(settings_options_json);
     renderPage();
 });
