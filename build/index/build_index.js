@@ -18,6 +18,7 @@ import { buildSettingsOptionsFromJSON} from "../../sdk/sdk_build_settings_option
 import {renderPage } from "../../sdk/sdk_page_post_process.js";
 
 window.addEventListener("load", function() {
+    // @TODO standardize the names of all HTML id attributes with camel case
     buildMenuFromJSON(menu_json);
     buildSearchBarFromJSON(search_bar_json);
     buildSettingsOptionsFromJSON(settings_options_json);
