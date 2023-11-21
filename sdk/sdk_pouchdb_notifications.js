@@ -43,7 +43,11 @@ function addNotificationToList(notification) {
     var notification_template_HTML = document.importNode(notification_template, true);
 
     // set the properties of the notification
-    //search_results_set_HTML.querySelector("div").id = results_set_id
+    notification_template_HTML.getElementById("sender").textContent = notification.sender;
+    notification_template_HTML.getElementById("avatar").src = notification.avatar;
+    notification_template_HTML.getElementById("message").textContent = notification.message;
+    notification_template_HTML.getElementById("datetime").textContent = notification.datetime;
+    notification_template_HTML.getElementById("minutesAgo").textContent = "10m";
 
     // place the notification into the notifications list
     document.getElementById("notificationsList").appendChild(notification_template_HTML);
