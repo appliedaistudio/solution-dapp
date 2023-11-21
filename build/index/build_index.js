@@ -14,6 +14,9 @@ import {buildSearchBarFromJSON} from "../../sdk/sdk_build_search.js";
 import settings_options_json from "../settings/build_settings_options.json" assert { type: 'json' };
 import { buildSettingsOptionsFromJSON} from "../../sdk/sdk_build_settings_options.js";
 
+// notifications
+import { writeTestNotifications, refreshNotifications } from "../../sdk/sdk_pouchdb_notifications.js";
+
 // post processing sdk
 import {renderPage } from "../../sdk/sdk_page_post_process.js";
 
@@ -22,5 +25,10 @@ window.addEventListener("load", function() {
     buildMenuFromJSON(menu_json);
     buildSearchBarFromJSON(search_bar_json);
     buildSettingsOptionsFromJSON(settings_options_json);
+
+    // @todo remove this
+    //writeTestNotifications();
+    refreshNotifications();
+
     renderPage();
 });
