@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World PWA</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/themes.css">
 </head>
-<body class="d-flex">
-  <div class="bg-image"></div>
-  <div id="app" class="content bg-transparent-dark rounded shadow-lg">
-    <div id="menu" class="btn-group mb-3"></div>
-    <h1 class="text-center my-4 title-font">Hello World</h1>
-    <div id="main-content" class="my-4">
-      <p class="paragraph-font">This is a simple progressive web app.</p>
+<body class="text-center">
+    <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
+        <div id="app-content" class="bg-dark text-white p-4 rounded-lg">
+            <div id="menu-container"></div>
+            <h1 id="app-title">Hello World</h1>
+            <div id="main-content">
+                <p>Here's a short message in the main content area.</p>
+            </div>
+            <div id="main-content-controls"></div>
+        </div>
     </div>
-    <div id="main-content-controls" class="my-4"></div>
-  </div>
 
-  <!-- Include Bootstrap's JavaScript and Popper.js before the closing </body> tag. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.2.2/pouchdb.min.js"></script>
-  <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.2.1/pouchdb.min.js"></script>
+    <script src="scripts/db.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/color-extractor.js"></script>
 </body>
 </html>
