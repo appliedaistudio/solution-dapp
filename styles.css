@@ -1,0 +1,57 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.bg-image::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('background-image.jpg'); /* Replace with the actual image path */
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  mask-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+.content {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 6px;
+  color: #f8f9fa; /* Light font color for high contrast */
+  z-index: 1;
+}
+
+.title-font {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: calc(2rem + 1vw);
+}
+
+.paragraph-font {
+  font-family: 'Georgia', serif;
+  font-size: calc(1rem + 1vw);
+}
+
+.btn-group-vertical > .btn, .dropdown-menu .dropdown-item {
+  border: 1px solid #f8f9fa;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #f8f9fa;
+  margin: 2px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    width: 95%;
+  }
+}
