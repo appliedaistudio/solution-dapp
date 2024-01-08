@@ -1,0 +1,12 @@
+{
+    "options": [
+        {
+            "name": "Menu 1",
+            "items": ["Dropdown Option 1.1", "Dropdown Option 1.2"]
+        },
+        {
+            "name": "Menu 2",
+            "items": ["Dropdown Option 2.1", "Dropdown Option 2.2"]
+        }
+    ]
+}

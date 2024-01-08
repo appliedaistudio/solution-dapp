@@ -1,0 +1,12 @@
+{
+    "controls": [
+        {
+            "icon": "icon1",
+            "name": "Control 1"
+        },
+        {
+            "icon": "icon2",
+            "name": "Control 2"
+        }
+    ]
+}
