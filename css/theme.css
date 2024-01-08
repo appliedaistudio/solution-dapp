@@ -14,7 +14,8 @@ body, html {
 }
 
 #app-content {
-    background-color: rgba(0, 0, 0, 0.7) !important; /* Adding !important to ensure this style takes precedence */
+    /* Use the CSS variable for the primary color and set the desired opacity */
+    background-color: rgba(var(--primary-color), 0.5) !important; /* Adding !important to ensure this style takes precedence */
     padding: 2rem;
     border-radius: 0.5rem; /* Rounded corners as requested */
     color: var(--font-color); /* Inheriting the font color from the root theme */
@@ -63,9 +64,9 @@ p {
 /* Color theme (Placeholder values, might be updated by color-extractor.js) */
 :root {
     --font-color: #fff;
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
-    --tertiary-color: #17a2b8;
+    --primary-color: #007bff; /* This will be overridden by JavaScript code. */
+    --secondary-color: #6c757d; /* This will be overridden by JavaScript code. */
+    --tertiary-color: #17a2b8; /* This will be overridden by JavaScript code. */
 }
 
 /* Apply theme colors */
