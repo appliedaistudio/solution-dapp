@@ -61,6 +61,35 @@ p {
     }
 }
 
+/* Custom responsive font sizes for menu items */
+/* Large screens */
+@media (min-width: 992px) {
+    .menu-item-btn {
+        font-size: 1.2rem; /* Adjust as needed */
+    }
+}
+
+/* Medium screens */
+@media (min-width: 768px) and (max-width: 991px) {
+    .menu-item-btn {
+        font-size: 1rem; /* Adjust as needed */
+    }
+}
+
+/* Small screens */
+@media (min-width: 576px) and (max-width: 767px) {
+    .menu-item-btn {
+        font-size: 0.8rem; /* Adjust as needed */
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 575px) {
+    .menu-item-btn {
+        font-size: 0.7rem; /* Adjust as needed */
+    }
+}
+
 /* Color theme (Placeholder values, might be updated by color-extractor.js) */
 :root {
     --font-color: #fff;

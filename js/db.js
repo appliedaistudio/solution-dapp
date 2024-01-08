@@ -16,6 +16,8 @@ db.put({
     options: [{name: "Option 1"}, {name: "Option 2"}] // etc...
 }).then(function () {
     console.log('Dummy menu data initialized.');
+}).catch(function (err) {
+    console.log(err);
 });
 
 db.put({
@@ -23,6 +25,8 @@ db.put({
     controls: [{icon: "icon1", name: "Control 1"}, {icon: "icon2", name: "Control 2"}] // etc...
 }).then(function () {
     console.log('Dummy content controls data initialized.');
+}).catch(function (err) {
+    console.log(err);
 });
 
 // More initialization and dummy data as needed...
