@@ -14,7 +14,13 @@ body, html {
 }
 
 #app-content {
-    background-color: rgba(0, 0, 0, 0.5); /* Dark translucent background */
+    background-color: rgba(0, 0, 0, 0.7) !important; /* Adding !important to ensure this style takes precedence */
+    padding: 2rem;
+    border-radius: 0.5rem; /* Rounded corners as requested */
+    color: var(--font-color); /* Inheriting the font color from the root theme */
+    max-width: 800px; /* Set a max-width for larger screens, can adjust as needed */
+    width: 100%; /* Use full width up to max-width */
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 /* Font styles */

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World App</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body class="text-center">
     <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
@@ -18,11 +18,17 @@
             <div id="main-content-controls"></div>
         </div>
     </div>
+    
+    <!-- PouchDB JavaScript -->
+    <script src="lib/pouchdb/pouchdb.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.2.1/pouchdb.min.js"></script>
-    <script src="scripts/db.js"></script>
-    <script src="scripts/auth.js"></script>
-    <script src="scripts/menu.js"></script>
-    <script src="scripts/color-extractor.js"></script>
+    <!-- Vibrant.js -->
+    <script src="lib/vibrant/vibrant.min.js"></script>
+
+    <!-- Your custom scripts -->
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/color-extractor.js"></script>
 </body>
 </html>
