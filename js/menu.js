@@ -1,47 +1,51 @@
+// scripts/menu.js
+document.addEventListener('DOMContentLoaded', function () {
+    loadMenu();
+    // loadMainContentControls(); // Load this if necessary
+});
+
 function loadMenu() {
-    // Fetch the menu options from the PouchDB instance
     const db = new PouchDB('hello_world_app');
 
     db.get('menu_options').then(function (doc) {
         const menuOptions = doc.options;
-        // Create the HTML for bootstrap horizontal dropdown menu items
-        let menuHtml = '<div class="btn-group" role="group">'; // Updated to 'btn-group' for horizontal layout
+        let menuHtml = '<div class="btn-group" role="group">'; // Updated for horizontal layout
 
-        for (const option of menuOptions) {
-            menuHtml += `<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-info dropdown-toggle menu-item-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                ${option.name}
-                            </button>`;
-            if (option.items && option.items.length > 0) {
-                menuHtml += '<div class="dropdown-menu">';
-                for (const item of option.items) {
-                    menuHtml += `<a class="dropdown-item" href="#" onclick="executeMenuOption('${item}')">${item}</a>`;
-                }
-                menuHtml += '</div>';
-            }
-            menuHtml += '</div>'; // Closing the individual button group
-        }
-        
-        menuHtml += '</div>'; // Closing the main button group
+        menuOptions.forEach(option => {
+            // Create dropdown button for each menu option
+            menuHtml += `
+                <div class="btn-group" role="group">
+                    <button id="menu-${option.name.replace(/\s+/g, '-').toLowerCase()}"
+                        type="button"
+                        class="btn btn-outline-info dropdown-toggle"
+                        data-bs-toggle="dropdown" // change to 'data-toggle' if using Bootstrap 4 or earlier
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        ${option.name}
+                    </button>
+                    <div class="dropdown-menu">`;
 
-        // Insert the HTML into the 'menu-container' in the index.html
+            // Create a dropdown item for each item inside an option
+            option.items.forEach(item => {
+                menuHtml += `<a class="dropdown-item" href="#" onclick="executeMenuOption('${item}')">${item}</a>`;
+            });
+
+            menuHtml += `</div></div>`; // Close dropdown menu and group
+        });
+
+        menuHtml += '</div>'; // Close the main button group
+
+        // Insert the HTML into the menu-container in the DOM
         document.getElementById('menu-container').innerHTML = menuHtml;
 
+        // Initialize dropdowns with Bootstap JS (This may be necessary for Bootstrap 4 or earlier)
+        // if you are using Bootstrap 5, the data-bs-toggle attribute will take care of the initialization
+        // $('.dropdown-toggle').dropdown(); 
     }).catch(function (err) {
         console.error('Error loading menu data:', err);
     });
 }
 
-function loadMainContentControls() {
-    // Assuming a function to load and insert main-content controls based on the PouchDB instance
-}
-
 function executeMenuOption(optionName) {
-    alert('Menu option clicked: ' + optionName);
+    alert(`Menu option clicked: ${optionName}`);
 }
-
-// Call menu loading functions after DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
-    loadMenu();
-    loadMainContentControls();
-});
