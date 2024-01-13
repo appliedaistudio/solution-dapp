@@ -1,7 +1,6 @@
 // scripts/menu.js
 document.addEventListener('DOMContentLoaded', function () {
     loadMenu();
-    // loadMainContentControls(); // Load this if necessary
 });
 
 function loadMenu() {
