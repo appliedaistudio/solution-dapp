@@ -1,5 +1,45 @@
+import { AccessLevels } from "./auth.js";
+
 // scripts/db.js
 const db = new PouchDB('hello_world_app');
+
+// Dummy user data with access levels
+const dummyUsers = [
+  {_id: 'user_guest', username: 'guest', password: 'guest123', accessLevel: AccessLevels.GUEST},
+  {_id: 'user_regular', username: 'user', password: 'user123', accessLevel: AccessLevels.USER},
+  {_id: 'user_admin', username: 'admin', password: 'admin123', accessLevel: AccessLevels.ADMIN}
+];
+
+// Function to initialize dummy users in the database
+function initializeDummyUsers() {
+  return Promise.all(
+      dummyUsers.map(user => db.put(user).catch(err => {
+          if (err.name !== 'conflict') {
+              throw err;
+          }
+          // A conflict means a document already exists, so we can skip or handle it as needed
+      }))
+  ).then(() => {
+      console.log('Dummy users initialized in the database.');
+  }).catch(error => {
+      console.error('Error while initializing dummy users:', error);
+  });
+}
+
+// Call initialization function for the dummy data
+initializeDummyData();
+
+// Initialize dummy data upon starting the application
+function initializeDummyData() {
+  // Assuming other data initialization functions like initializeMenuOptions(), etc.
+  initializeDummyUsers()
+      .then(() => {
+          // Continue with initialization of other dummy data or app setup
+      })
+      .catch(err => {
+          console.error('Error initializing the database with dummy data:', err);
+      });
+}
 
 // Function to fetch JSON data from server
 function fetchJSONData(url) {
