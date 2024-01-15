@@ -43,6 +43,7 @@ export function updateThemeColorsBasedOnImage(imagePath) {
             rootStyle.setProperty('--neutral-color', neutralColorRGB);
             rootStyle.setProperty('--accent-color', accentColorRGB);
             rootStyle.setProperty('--light-color', lightColorRGB);
+            rootStyle.setProperty('--font-color', lightColorRGB);
         }
     };
     

@@ -18,7 +18,7 @@ body, html {
     background-color: rgba(var(--neutral-color), 0.8) !important; /* Adding !important to ensure this style takes precedence */
     padding: 2rem;
     border-radius: 0.5rem; /* Rounded corners as requested */
-    color: var(--light-color); /* Inheriting the font color from the root theme */
+    color: var(--font-color); /* Inheriting the font color from the root theme */
     max-width: 800px; /* Set a max-width for larger screens, can adjust as needed */
     width: 100%; /* Use full width up to max-width */
     box-sizing: border-box; /* Ensure padding is included in width */
@@ -92,6 +92,7 @@ p {
 
 /* Color theme (Placeholder values, might be updated by color-extractor.js) */
 :root {
+    --font-color: #fff; /* This will be overridden by JavaScript code. */
     --light-color: #fff; /* This will be overridden by JavaScript code. */
     --neutral-color: #007bff; /* This will be overridden by JavaScript code. */
     --accent-color: #6c757d; /* This will be overridden by JavaScript code. */
@@ -102,9 +103,59 @@ p {
     color: var(--light-color);
 }
 
-/* Menu style */
-#menu-container .btn-group-vertical .btn {
-    margin: 0.5rem 0;
-    opacity: 0.85;
-    border: 1px solid var(--light-color);
+/* Apply styling for the menu */
+.menu-group .menu-button {
+    /* Use the font-family defined for the body */
+    font-family: inherit;
+    
+    /* Use variable for font color */
+    color: var(--font-color);
+
+    /* Customized Bootstrap button style to match theme */
+    background-color: var(--light-color);
+    border-color: var(--neutral-color);
+}
+
+.menu-group .menu-button:hover {
+    /* Use variable for accent color on hover */
+    background-color: var(--accent-color);
+}
+
+.dropdown-item {
+    /* Use the font size defined for paragraph text */
+    font-size: inherit;
+
+    /* Ensure the dropdown items use the theme's font color */
+    color: var(--font-color);
+}
+
+/* Apply styling for the controls container */
+.controls-container {
+    /* Add styles for the container if needed */
+}
+
+/* Apply styling for the control buttons */
+.control-button {
+    font-family: 'Times New Roman', serif;
+    font-size: 1rem; /* Example size, adjust as needed */
+    color: var(--font-color);
+    background-color: var(--light-color); /* Default state background */
+    border-color: var(--neutral-color); /* Border color */
+}
+
+.control-button:hover {
+    color: var(--light-color);
+    background-color: var(--accent-color); /* Background color on hover */
+}
+
+/* Ensure i tags within control-button use the font color */
+.control-button i {
+    color: inherit; /* Inherit color from .control-button for consistency */
+}
+
+/* Add specific responsive font size changes if needed */
+@media (max-width: 768px) {
+    .control-button {
+        font-size: 0.8rem; /* Smaller size for narrow views */
+    }
 }
