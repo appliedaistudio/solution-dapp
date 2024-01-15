@@ -1,8 +1,8 @@
-import { initializeUsers } from './db/users.js';
-import { initializeMenu } from './db/menu.js';
-import { initializeMainContent } from './db/main-content-controls.js';
+import { initializeUsers } from './db/db-init-users.js';
+import { initializeMenu } from './db/db-init-menu.js';
+import { initializeMainContent } from './db/db-init-main-content-controls.js';
 
-// Example of db instance, replace with your actual database initialization
+// local database instance initialization
 const db = new PouchDB('my_database');
 
 // Initialize each part of the database

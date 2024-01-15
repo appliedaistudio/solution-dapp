@@ -1,5 +1,5 @@
-import { putData } from './common.js';
-import { AccessLevels } from '../auth.js';
+import { putData } from './db-init-common.js';
+import { AccessLevels } from '../ui/ui-auth.js';
 
 // Dummy user data with access levels
 const dummyUsers = [

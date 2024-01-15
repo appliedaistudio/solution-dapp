@@ -1,4 +1,4 @@
-import { putData, fetchJSONData } from './common.js';
+import { putData, fetchJSONData } from './db-init-common.js';
 
 async function initializeMainContent(db) {
     const contentControls = fetchJSONData('../../data/main-content-controls.json');

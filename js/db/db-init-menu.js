@@ -1,4 +1,4 @@
-import { putData, fetchJSONData } from './common.js';
+import { putData, fetchJSONData } from './db-init-common.js';
 
 async function initializeMenu(db) {
     var menuItems = fetchJSONData('../../data/menu-options.json');
