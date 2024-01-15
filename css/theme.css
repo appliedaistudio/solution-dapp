@@ -15,10 +15,10 @@ body, html {
 
 #app-content {
     /* Use the CSS variable for the primary color and set the desired opacity */
-    background-color: rgba(var(--primary-color), 0.5) !important; /* Adding !important to ensure this style takes precedence */
+    background-color: rgba(var(--neutral-color), 0.8) !important; /* Adding !important to ensure this style takes precedence */
     padding: 2rem;
     border-radius: 0.5rem; /* Rounded corners as requested */
-    color: var(--font-color); /* Inheriting the font color from the root theme */
+    color: var(--light-color); /* Inheriting the font color from the root theme */
     max-width: 800px; /* Set a max-width for larger screens, can adjust as needed */
     width: 100%; /* Use full width up to max-width */
     box-sizing: border-box; /* Ensure padding is included in width */
@@ -92,20 +92,19 @@ p {
 
 /* Color theme (Placeholder values, might be updated by color-extractor.js) */
 :root {
-    --font-color: #fff;
-    --primary-color: #007bff; /* This will be overridden by JavaScript code. */
-    --secondary-color: #6c757d; /* This will be overridden by JavaScript code. */
-    --tertiary-color: #17a2b8; /* This will be overridden by JavaScript code. */
+    --light-color: #fff; /* This will be overridden by JavaScript code. */
+    --neutral-color: #007bff; /* This will be overridden by JavaScript code. */
+    --accent-color: #6c757d; /* This will be overridden by JavaScript code. */
 }
 
 /* Apply theme colors */
 .text-white {
-    color: var(--font-color);
+    color: var(--light-color);
 }
 
 /* Menu style */
 #menu-container .btn-group-vertical .btn {
     margin: 0.5rem 0;
     opacity: 0.85;
-    border: 1px solid var(--font-color);
+    border: 1px solid var(--light-color);
 }

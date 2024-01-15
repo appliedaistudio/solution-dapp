@@ -19,7 +19,6 @@ function hexToRGB(hex) {
 
 // Assuming vibrant.js is included and the DOM is ready
 export function updateThemeColorsBasedOnImage(imagePath) {
-
     // Create a new Vibrant instance and pass the image URL directly
     var img = new Image();
     img.src = imagePath;
@@ -29,22 +28,21 @@ export function updateThemeColorsBasedOnImage(imagePath) {
         var swatches = vibrant.swatches();
         
         if (swatches) {
-
-            // Set the color theme in Hex
-            let primaryColorHex = swatches.Vibrant.getHex();
-            let secondaryColorHex = swatches.Muted.getHex();
-            let tertiaryColorHex = swatches.DarkVibrant.getHex();
+            // Define the specific swatches you want to use
+            let neutralColorHex = swatches.DarkMuted ? swatches.DarkMuted.getHex() : '#999'; // Fallback if undefined
+            let accentColorHex = swatches.Vibrant ? swatches.Vibrant.getHex() : '#f00'; // Fallback if undefined
+            let lightColorHex = swatches.LightVibrant ? swatches.LightVibrant.getHex() : '#fff'; // Fallback if undefined
 
             // Convert the Hex color theme to RGB
-            const primaryColorRGB = hexToRGB(primaryColorHex);
-            const secondaryColorRGB = hexToRGB(secondaryColorHex);
-            const tertiaryColorRGB = hexToRGB(tertiaryColorHex);
+            const neutralColorRGB = hexToRGB(neutralColorHex);
+            const accentColorRGB = hexToRGB(accentColorHex);
+            const lightColorRGB = hexToRGB(lightColorHex);
 
             // Apply these colors to the CSS
             const rootStyle = document.documentElement.style;
-            rootStyle.setProperty('--primary-color', primaryColorRGB);
-            rootStyle.setProperty('--secondary-color', secondaryColorRGB);
-            rootStyle.setProperty('--tertiary-color', tertiaryColorRGB);
+            rootStyle.setProperty('--neutral-color', neutralColorRGB);
+            rootStyle.setProperty('--accent-color', accentColorRGB);
+            rootStyle.setProperty('--light-color', lightColorRGB);
         }
     };
     
