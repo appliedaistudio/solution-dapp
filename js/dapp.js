@@ -1,4 +1,4 @@
-import config from './config.js';
+import config from './dapp-config.js';
 
 import { initializeUsers } from './db/db-init-users.js';
 import { initializeMenu } from './db/db-init-menu.js';
