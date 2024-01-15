@@ -32,6 +32,40 @@ async function loginUser(db, username, password) {
   }
 }
 
+// Function to log out the current user
+async function logoutUser(db) {
+  try {
+      // Fetch the current session document from PouchDB
+      const currentSession = await db.get('current_session');
+      
+      // Remove the session document to effectively log out the user
+      await db.remove(currentSession);
+      
+      console.log('User logged out successfully');
+  } catch (err) {
+      console.error('Logout failed:', err);
+  }
+}
+
+// Function to check if a user is currently logged in by looking for a current session document
+async function isLoggedIn(db) {
+  try {
+      // Attempt to fetch the current session document
+      const sessionDoc = await db.get('current_session');
+      
+      // If the session document exists and it has a userId, assume a user is logged in
+      return sessionDoc.userId != null;
+  } catch (err) {
+      // If an error occurs, handle specific not found case to return false
+      if (err.status === 404) {
+          return false;
+      }
+      
+      // Rethrow any other errors to handle them elsewhere
+      throw err;
+  }
+}
+
 function updateCurrentSession(db, userId) {
     const sessionId = 'current_session';
     
@@ -76,41 +110,69 @@ function hasAccessLevel(requiredLevel) {
 
 // Returns the access level of the current logged-in user from PouchDB
 function getCurrentUserAccessLevel(db) {
-    return new Promise((resolve, reject) => {
-      // Retrieve the currently logged-in user's session (this will vary based on how your app manages sessions)
-      const currentUserId = getCurrentUserId(); // This is a placeholder function
+  return new Promise((resolve, reject) => {
+    // Retrieve the currently logged-in user's session (this will vary based on how your app manages sessions)
+    const currentUserId = getCurrentUserId(); // This is a placeholder function
+
+    if (!currentUserId) {
+      // No user is currently logged in, or the session can't be found
+      reject(new Error('No user is currently logged in.'));
+      return;
+    }
+
+    // Fetch the user document from PouchDB
+    db.get(currentUserId).then(userDoc => {
+      // Resolve the promise with the user's access level
+      resolve(userDoc.accessLevel);
+    }).catch(err => {
+      // Handle any errors, such as the user not existing in the database
+      reject(err);
+    });
+  });
+}
   
-      if (!currentUserId) {
-        // No user is currently logged in, or the session can't be found
+// Retrieves the current user's ID from a "current_session" document in PouchDB
+function getCurrentUserId(db) {
+  return new Promise((resolve, reject) => {
+    db.get('current_session').then(sessionDoc => {
+      // Assuming the session document has a "userId" field
+      if (sessionDoc.userId) {
+        resolve(sessionDoc.userId);
+      } else {
+        // No user ID in the session document, treat as no user logged in
         reject(new Error('No user is currently logged in.'));
-        return;
       }
-  
-      // Fetch the user document from PouchDB
-      db.get(currentUserId).then(userDoc => {
-        // Resolve the promise with the user's access level
-        resolve(userDoc.accessLevel);
-      }).catch(err => {
-        // Handle any errors, such as the user not existing in the database
-        reject(err);
-      });
+    }).catch(err => {
+      // Handle cases where the "current_session" document doesn't exist or other DB errors
+      reject(err);
     });
+  });
+}
+
+// Retrieves the current user's username from PouchDB
+async function getCurrentUsername(db) {
+  try {
+      // Fetch the current session document from the database
+      const sessionDoc = await db.get('current_session');
+      
+      // Extract the user ID from the session document
+      const userId = sessionDoc.userId;
+
+      // If there is no user ID, there is no logged-in user
+      if (!userId) {
+          throw new Error('No user is currently logged in.');
+      }
+
+      // Fetch the user document using the userID from the session document
+      const userDoc = await db.get(userId);
+
+      // Return the logged-in user's username
+      return userDoc.username;
+  } catch (err) {
+      console.error('Error retrieving current username:', err);
+      throw err; // Rethrow the error to let the caller handle it
   }
-  
-  // Retrieves the current user's ID from a "current_session" document in PouchDB
-  function getCurrentUserId(db) {
-    return new Promise((resolve, reject) => {
-      db.get('current_session').then(sessionDoc => {
-        // Assuming the session document has a "userId" field
-        if (sessionDoc.userId) {
-          resolve(sessionDoc.userId);
-        } else {
-          // No user ID in the session document, treat as no user logged in
-          reject(new Error('No user is currently logged in.'));
-        }
-      }).catch(err => {
-        // Handle cases where the "current_session" document doesn't exist or other DB errors
-        reject(err);
-      });
-    });
-  }
+}
+
+// Export the new functions so they can be used elsewhere in your application
+export { loginUser, hasAccessLevel, logoutUser, isLoggedIn, getCurrentUsername };
