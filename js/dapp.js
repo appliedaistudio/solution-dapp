@@ -8,18 +8,6 @@ import { loadMenu } from './ui/ui-menu.js';
 import { loadMainContentControls } from './ui/ui-controls.js';
 import { updateThemeColorsBasedOnImage } from './ui/ui-color-extractor.js';
 
-// Register the PWA service worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('ServiceWorker registration successful with scope:', registration.scope);
-        })
-        .catch(error => {
-          console.log('ServiceWorker registration failed:', error);
-        });
-    });
-  }
 
 // Construct the full remote database URL with credentials for authentication
 const remoteDbUrl = `https://${encodeURIComponent(config.remoteDbUsername)}:${encodeURIComponent(config.remoteDbPassword)}@${config.remoteDbBase}`;

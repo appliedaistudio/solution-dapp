@@ -16,6 +16,17 @@
      <script src="lib/bcrypt/js/bcrypt.min.js"></script>
 </head>
 <body class="text-center">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registration successful with scope:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
     <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
         <div id="app-content" class="bg-dark text-white p-4 rounded-lg">
             <div id="menu-container"></div>
