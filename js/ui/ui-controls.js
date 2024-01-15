@@ -1,9 +1,8 @@
 // This function should be invoked after the page has loaded and PouchDB setup is complete.
-export function loadMainContentControls() {
-    const db = new PouchDB('hello_world_app');
+export function loadMainContentControls(db, controlsId) {
 
     // Assuming db is the PouchDB instance and 'content_controls' is an id in your PouchDB:
-    db.get('content_controls').then(function (controlsData) {
+    db.get(controlsId).then(function (controlsData) {
 
       // Create a container for the controls
       var controlsContainer = document.createElement('div');

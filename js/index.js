@@ -18,10 +18,12 @@ initializeMainContent(db);
 
 // Check authorization
 
-// Update the UI
-// Assuming you are using DOMContentLoaded event to initialize UI after the document is fully loaded.
+// Define the path to the background image
+const backgroundImagePath = '../images/background.jpg';
+
+// Update the UI assuming we are using DOMContentLoaded event to initialize UI after the document is fully loaded.
 document.addEventListener('DOMContentLoaded', () => {
-    loadMenu();
-    loadMainContentControls();
-    updateThemeColorsBasedOnImage();
+    loadMenu(db, 'hello_world_menu');
+    loadMainContentControls(db, 'hello_world_controls');
+    updateThemeColorsBasedOnImage(backgroundImagePath);
 });
