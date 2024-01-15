@@ -5,24 +5,31 @@ export const AccessLevels = Object.freeze({
     "ADMIN": 2
 });
 
-function loginUser(db, username, password) {
-    // Fetch the user document from PouchDB using the username
-    db.get(`user_${username}`).then(userDoc => {
-        // Check if the provided password matches
-        if (userDoc.password === password) {
-            // Successful login, handle updating the current_session document
-            return updateCurrentSession(db, userDoc._id);
-        } else {
-            // Password does not match, throw an error
-            throw new Error('The provided credentials are incorrect.');
-        }
-    }).then(response => {
-        // Login and session update successful
-        console.log('User logged in and current session updated:', response);
-    }).catch(err => {
-        // Handle any errors during login or session update
-        console.error('Login failed:', err);
-    });
+// Install bcrypt to read securely hashied passwords
+var bcrypt = dcodeIO.bcrypt;
+
+// Update loginUser to use bcrypt for password comparison
+async function loginUser(db, username, password) {
+  try {
+      // Fetch the user document from PouchDB using the username
+      const userDoc = await db.get(`user_${username}`);
+      
+      // Use bcrypt to compare provided password with stored hash
+      const passwordMatches = await bcrypt.compare(password, userDoc.password);
+      
+      if (passwordMatches) {
+          // Successful login, handle updating the current_session document
+          const response = await updateCurrentSession(db, userDoc._id);
+          // Login and session update successful
+          console.log('User logged in and current session updated:', response);
+      } else {
+          // Password does not match, throw an error
+          throw new Error('The provided credentials are incorrect.');
+      }
+  } catch (err) {
+      // Handle any errors during login or session update
+      console.error('Login failed:', err);
+  }
 }
 
 function updateCurrentSession(db, userId) {

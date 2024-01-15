@@ -33,31 +33,63 @@ p {
     font-size: 1rem; /* Paragraph text */
 }
 
-/* Responsive Font sizes */
+/* Add or update styles for the app title and main content */
+#app-title {
+    /* App title font styles */
+    color: var(--font-color); /* Use a CSS variable for color */
+    font-family: 'Times New Roman', serif;
+    font-size: 2.5rem;
+    /* Additional styles if needed */
+}
+
+#main-content {
+    /* Main content font styles */
+    color: var(--font-color); /* Use a CSS variable for color */
+    font-family: 'Times New Roman', serif;
+    font-size: 1rem;
+    /* Additional styles if needed */
+}
+
+/* Overwrite Bootstrap default styles with your theme colors */
+.bg-dark {
+    background-color: var(--neutral-color) !important; /* Use !important to override Bootstrap styles */
+}
+
+.text-white {
+    color: var(--font-color) !important; /* Use !important to override Bootstrap styles */
+}
+
+/* Ensure that other elements inside main-content inherit the correct font style */
+#main-content p {
+    font-size: inherit; /* Inherit the font size from #main-content */
+    color: inherit; /* Inherit the font color from #main-content */
+}
+
+/* Responsive font size adjustments */
 @media (max-width: 992px) {
-    h1 {
-        font-size: 2rem; /* Tablets */
+    #app-title {
+        font-size: 2rem; /* Adjust for tablets */
     }
-    p {
-        font-size: 0.9rem;
+    #main-content {
+        font-size: 0.9rem; /* Adjust text size for paragraphs */
     }
 }
 
 @media (max-width: 768px) {
-    h1 {
-        font-size: 1.5rem; /* Landscape phones */
+    #app-title {
+        font-size: 1.5rem; /* Adjust for landscape phones */
     }
-    p {
-        font-size: 0.8rem;
+    #main-content {
+        font-size: 0.8rem; /* Smaller text for landscape phones */
     }
 }
 
 @media (max-width: 576px) {
-    h1 {
-        font-size: 1.2rem; /* Portrait phones */
+    #app-title {
+        font-size: 1.2rem; /* Adjust for portrait phones */
     }
-    p {
-        font-size: 0.75rem;
+    #main-content {
+        font-size: 0.75rem; /* Even smaller text for portrait phones */
     }
 }
 
