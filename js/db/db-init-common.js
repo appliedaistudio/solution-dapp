@@ -12,14 +12,13 @@ async function putData(db, data) {
   }
 
 // Function to fetch JSON data from server
-function fetchJSONData(url) {
-    return fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        });
+async function fetchJSONData(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  const data = await response.json();
+  return data;
 }
   
 export { putData, fetchJSONData };
