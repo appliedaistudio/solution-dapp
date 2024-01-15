@@ -1,10 +1,5 @@
-// scripts/controls.js
-document.addEventListener('DOMContentLoaded', function () {
-  loadMainContentControls();
-});
-
 // This function should be invoked after the page has loaded and PouchDB setup is complete.
-function loadMainContentControls() {
+export function loadMainContentControls() {
     const db = new PouchDB('hello_world_app');
 
     // Assuming db is the PouchDB instance and 'content_controls' is an id in your PouchDB:

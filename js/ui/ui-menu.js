@@ -1,9 +1,5 @@
-// scripts/menu.js
-document.addEventListener('DOMContentLoaded', function () {
-    loadMenu();
-});
 
-function loadMenu() {
+export function loadMenu() {
     const db = new PouchDB('hello_world_app');
 
     db.get('menu_options').then(function (doc) {

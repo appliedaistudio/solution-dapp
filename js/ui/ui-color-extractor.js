@@ -18,7 +18,7 @@ function hexToRGB(hex) {
 }
 
 // Assuming vibrant.js is included and the DOM is ready
-function updateThemeColorsBasedOnImage() {
+export function updateThemeColorsBasedOnImage() {
     const imagePath = '../images/background.jpg'; // update path as necessary
     // Create a new Vibrant instance and pass the image URL directly
     var img = new Image();
@@ -52,5 +52,3 @@ function updateThemeColorsBasedOnImage() {
         console.error('There was an error loading the image:', imagePath);
     };
 }
-
-document.addEventListener('DOMContentLoaded', updateThemeColorsBasedOnImage);
