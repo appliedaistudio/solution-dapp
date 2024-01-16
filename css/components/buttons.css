@@ -1,0 +1,26 @@
+.menu-group .menu-button {
+    font-family: inherit;
+    color: var(--font-color);
+    background-color: var(--light-color);
+    border-color: var(--neutral-color);
+}
+
+.menu-group .menu-button:hover {
+    background-color: var(--accent-color);
+}
+
+.control-button {
+    font-family: inherit;
+    color: var(--font-color);
+    background-color: var(--light-color);
+    border-color: var(--neutral-color);
+}
+
+.control-button:hover {
+    color: var(--light-color);
+    background-color: var(--accent-color);
+}
+
+.control-button i {
+    color: inherit;
+}

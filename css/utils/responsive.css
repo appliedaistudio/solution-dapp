@@ -1,0 +1,26 @@
+@media (max-width: 992px) {
+    #app-title {
+        font-size: 2rem;
+    }
+    #main-content {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #app-title {
+        font-size: 1.5rem;
+    }
+    #main-content {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #app-title {
+        font-size: 1.2rem;
+    }
+    #main-content {
+        font-size: 0.75rem;
+    }
+}
