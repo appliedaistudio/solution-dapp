@@ -4,7 +4,8 @@ const config = {
     remoteDbUsername: 'your_couchdb_username',
     remoteDbPassword: 'your_couchdb_password',
     localDbName: 'my_local_database', // Name of your local PouchDB
-    backgroundImage: './images/background.jpg' // Add this line
+    backgroundImage: './images/background.jpg',
+    homePage: 'index.html'
 };
 
 export default config;

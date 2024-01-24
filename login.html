@@ -50,6 +50,26 @@
         </div>
     </div>
     
+    <!-- Unsuccessful Login Modal -->
+    <div class="modal fade" id="unsuccessfulLoginModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Login Unsuccessful</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Your login attempt was unsuccessful. Please check your username and password, and try again.
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!-- External libraries. These should be loaded before the custom scripts.-->
     <script src="lib/pouchdb/pouchdb.min.js"></script>
     <script src="lib/vibrant/vibrant.min.js"></script>
@@ -65,15 +85,23 @@
         });
     </script>
 
-    <!-- Script for handling form submission and login -->
+   <!-- Script for handling form submission, login, and modal display -->
     <script type="module">
         import { loginUser } from './js/ui/ui-auth.js';
         import config from './js/dapp-config.js';
-
-        // Initialize local and remote PouchDB instances using the provided configuration
+        import { updateThemeColorsBasedOnImage } from './js/ui/ui-color-extractor.js';
+        
         const localDb = new PouchDB(config.localDbName);
 
         document.addEventListener('DOMContentLoaded', () => {
+            updateThemeColorsBasedOnImage(config.backgroundImage);
+
+            // Define the function that shows the unsuccessful login modal
+            function showUnsuccessfulLoginModal() {
+                // Using Bootstrap's modal method to show the modal
+                const loginModal = new bootstrap.Modal(document.getElementById('unsuccessfulLoginModal'));
+                loginModal.show();
+            }
 
             const loginForm = document.getElementById('loginForm');
             loginForm.addEventListener('submit', async (event) => {
@@ -82,15 +110,19 @@
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
 
+                // Check and set the 'lastVisitedPage' session variable if necessary
+                if (!sessionStorage.getItem('lastVisitedPage')) {
+                    sessionStorage.setItem('lastVisitedPage', config.homePage);
+                }
+
                 // Call the exported login function from ui-auth.js module
                 const result = await loginUser(localDb, username, password);
-                
-                if (result.success) {
-                    // Handle successful login, e.g. redirecting to the main app
-                    window.location.href = 'index.html'; // Replace with your main app page
+                if (!result.success) {
+                    // Show the unsuccessful login modal if login didn't succeed
+                    showUnsuccessfulLoginModal();
                 } else {
-                    // Handle failed login, e.g. showing an error message
-                    console.error(result.message); // Or show on the UI
+                    // Redirect to home page or handle successful login
+                    window.location.href = sessionStorage.getItem('lastVisitedPage') || 'index.html';
                 }
             });
         });
