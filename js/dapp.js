@@ -60,7 +60,7 @@ isLoggedIn(localDb).then(loggedIn => {
 });
 
 // Define the path to the background image
-const backgroundImagePath = '../images/background.jpg';
+const backgroundImagePath = './images/background.jpg';
 
 // When DOM is ready, load the UI components
 document.addEventListener('DOMContentLoaded', () => {
