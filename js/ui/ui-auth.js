@@ -20,8 +20,12 @@ async function loginUser(db, username, password) {
       if (passwordMatches) {
           // Successful login, handle updating the current_session document
           const response = await updateCurrentSession(db, userDoc._id);
+          
           // Login and session update successful
           console.log('User logged in and current session updated:', response);
+
+          // After updating the session, call handleSuccessfulLogin
+          handleSuccessfulLogin(db);
       } else {
           // Password does not match, throw an error
           throw new Error('The provided credentials are incorrect.');
@@ -172,6 +176,16 @@ async function getCurrentUsername(db) {
       console.error('Error retrieving current username:', err);
       throw err; // Rethrow the error to let the caller handle it
   }
+}
+
+// Function called after successful login
+function handleSuccessfulLogin(db) {
+  // Check sessionStorage for the last visited page
+  const lastVisitedPage = sessionStorage.getItem('lastVisitedPage') || '/'; // Use root as the default redirect if no page was recorded
+  // Perform the redirect to the last visited page or the default page
+  window.location.href = lastVisitedPage;
+  // Clear the last visited page record from sessionStorage
+  sessionStorage.removeItem('lastVisitedPage');
 }
 
 // Export the new functions so they can be used elsewhere in your application

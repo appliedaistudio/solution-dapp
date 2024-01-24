@@ -52,19 +52,19 @@ initializeUsers(localDb);
 initializeMenu(localDb);
 initializeMainContent(localDb);
 
-// Check users' logged-in status and load UI
-isLoggedIn(localDb).then(loggedIn => {
-    console.log(loggedIn ? 'A user is currently logged in.' : 'No user is currently logged in.');
-}).catch(err => {
-    console.error('Error while checking if user is logged in:', err);
-});
-
-// Define the path to the background image
-const backgroundImagePath = './images/background.jpg';
-
-// When DOM is ready, load the UI components
+// Listener for app startup logic
 document.addEventListener('DOMContentLoaded', () => {
-    loadMenu(localDb, 'hello_world_menu');
-    loadMainContentControls(localDb, 'hello_world_controls');
-    updateThemeColorsBasedOnImage(backgroundImagePath);
+    // Check users' logged-in status
+    isLoggedIn(localDb).then(loggedIn => {
+        if (!loggedIn) {
+            sessionStorage.setItem('lastVisitedPage', window.location.href);
+            window.location.replace('login.html');
+        } else {
+            console.log('A user is currently logged in.');
+            loadMenu(localDb, 'hello_world_menu');
+            loadMainContentControls(localDb, 'hello_world_controls');
+        }
+    }).catch(err => {
+        console.error('Error while checking if user is logged in:', err);
+    });
 });
