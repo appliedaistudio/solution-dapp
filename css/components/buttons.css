@@ -3,6 +3,7 @@
     color: var(--font-color);
     background-color: var(--light-color);
     border-color: var(--neutral-color);
+    border: none; /* Set border to none for menu buttons */
 }
 
 .menu-group .menu-button:hover {
@@ -14,6 +15,7 @@
     color: var(--font-color);
     background-color: var(--light-color);
     border-color: var(--neutral-color);
+    border: none; /* Set border to none for control buttons */
 }
 
 .control-button:hover {
