@@ -1,7 +1,7 @@
 const CACHE_NAME = 'cache-v1';
 const urlsToCache = [
     'index.html',
-    './css/theme.css',
+    './css/base/base.css',
     './js/dapp.js'
 ];
 
