@@ -1,5 +1,6 @@
 {
-    "maintenance_logs": [
+  "_id": "hhighcliffai_maintenance_recommendations_log",
+    "maintenance_recommendations_log": [
       {
         "id": 1,
         "recommendation": "Ensure the Air Conditioner's air filters are clean for efficient cooling",

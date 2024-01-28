@@ -1,5 +1,6 @@
 {
-    "habit_tracking": [
+  "_id": "hhighcliffai_habit_tracking_log",
+    "habit_tracking_log": [
       {
         "id": 1,
         "habit": "Daily Walking",
