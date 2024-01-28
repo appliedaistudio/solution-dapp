@@ -1,4 +1,5 @@
 {
+    "_id": "hhighcliffai_appliance_inventory",
     "Electrical_and_Mechanical": [
         "Air Conditioner",
         "Dishwasher",
@@ -10,7 +11,7 @@
         "Coffee Maker",
         "Toaster"
     ],
-    "Inventory": {
+    "appliance_inventory": {
         "Air Conditioner": [
             {"id": 1, "Brand": "Whirlpool", "Date_of_Purchase": 2013, "Quantity_Available": 1, "Price_Per_Unit": 800},
             {"id": 2, "Brand": "LG", "Date_of_Purchase": 2014, "Quantity_Available": 2, "Price_Per_Unit": 750}

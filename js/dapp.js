@@ -6,7 +6,6 @@ import { initializeMainContent } from './db/db-init-main-content-controls.js';
 import { isLoggedIn } from './ui/ui-auth.js';
 import { loadMenu } from './ui/ui-menu.js';
 import { loadMainContentControls } from './ui/ui-controls.js';
-import { updateThemeColorsBasedOnImage } from './ui/ui-color-extractor.js';
 
 
 // Construct the full remote database URL with credentials for authentication
