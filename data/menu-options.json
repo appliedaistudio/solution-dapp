@@ -10,6 +10,11 @@
             "_id": "Menu 2",
             "name": "Menu 2",
             "items": ["Dropdown Option 2.1", "Dropdown Option 2.2"]
+        },
+        {
+            "_id": "User",
+            "name": "User",
+            "items": ["Add User", "User Info", "Logout"]
         }
     ]
 }

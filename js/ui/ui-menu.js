@@ -1,3 +1,10 @@
+// Import functions from external libraries as needed
+import { logoutUser } from './ui-auth.js';
+
+// Define a mapping from option names to functions
+const optionFunctionMappings = {
+  'logoutUser': logoutUser // These keys should match option names
+};
 
 export function loadMenu(db, menuId) {
   db.get(menuId).then(function (doc) {
@@ -45,5 +52,13 @@ export function loadMenu(db, menuId) {
 }
 
 function executeMenuOption(optionName) {
-  alert(`Menu option clicked: ${optionName}`);
-}
+    alert(`Menu option clicked: ${optionName}`);
+
+    if (optionFunctionMappings.hasOwnProperty(optionName)) {
+      // Call the mapped function for the given optionName
+      optionFunctionMappings[optionName]();
+    } else {
+      alert(`No function found for menu option: ${optionName}`);
+      console.error(`No function found for menu option: ${optionName}`);
+    }
+  }
