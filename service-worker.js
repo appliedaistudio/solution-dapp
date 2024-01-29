@@ -1,8 +1,8 @@
 const CACHE_NAME = 'cache-v1';
 const urlsToCache = [
-    'index.html',
-    './css/base/base.css',
-    './js/dapp.js'
+    '/index.html',
+    '/css/base/base.css',
+    '/js/dapp.js'
 ];
 
 self.addEventListener('install', event => {

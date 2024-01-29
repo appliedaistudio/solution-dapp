@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- PWA manifest file -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
 
     <title>Hello World App</title>
 
     <!-- Library stylesheets-->
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/fontawesome/css/all.min.css">
     
     <!-- Custom stylesheets. This should be linked after the library style sheets-->
-    <link rel="stylesheet" href="css/base/variables.css">
-    <link rel="stylesheet" href="css/base/base.css">
-    <link rel="stylesheet" href="css/base/typography.css">
-    <link rel="stylesheet" href="css/layout/layout.css">
-    <link rel="stylesheet" href="css/components/buttons.css">
-    <link rel="stylesheet" href="css/components/menu.css">
-    <link rel="stylesheet" href="css/components/controls.css">
-    <link rel="stylesheet" href="css/utils/responsive.css">
+    <link rel="stylesheet" href="/css/base/variables.css">
+    <link rel="stylesheet" href="/css/base/base.css">
+    <link rel="stylesheet" href="/css/base/typography.css">
+    <link rel="stylesheet" href="/css/layout/layout.css">
+    <link rel="stylesheet" href="/css/components/buttons.css">
+    <link rel="stylesheet" href="/css/components/menu.css">
+    <link rel="stylesheet" href="/css/components/controls.css">
+    <link rel="stylesheet" href="/css/utils/responsive.css">
 
     <!-- Add bcryptjs library for global availability -->
-    <script src="lib/bcrypt/js/bcrypt.min.js"></script>
+    <script src="/lib/bcrypt/js/bcrypt.min.js"></script>
 </head>
 <body class="text-center">
     <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
@@ -71,9 +71,9 @@
     </div>
 
     <!-- External libraries. These should be loaded before the custom scripts.-->
-    <script src="lib/pouchdb/pouchdb.min.js"></script>
-    <script src="lib/vibrant/vibrant.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/pouchdb/pouchdb.min.js"></script>
+    <script src="/lib/vibrant/vibrant.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Inline script to directly run updateThemeColorsBasedOnImage when the DOM is ready -->
     <script type="module">
@@ -122,7 +122,7 @@
                     showUnsuccessfulLoginModal();
                 } else {
                     // Redirect to home page or handle successful login
-                    window.location.href = sessionStorage.getItem('lastVisitedPage') || 'index.html';
+                    window.location.href = sessionStorage.getItem('lastVisitedPage') || '/index.html';
                 }
             });
         });
