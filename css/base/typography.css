@@ -1,7 +1,7 @@
 /* Add @font-face rules for EB Garamond - Normal Style */
 @font-face {
     font-family: 'EB Garamond';
-    src: url('/fonts/EB-Garamond/eb-garamond-v27-latin-regular.woff2') format('woff2');
+    src: url('./fonts/EB-Garamond/eb-garamond-v27-latin-regular.woff2') format('woff2');
     font-weight: 400; /* Normal weight */
     font-style: normal;
 }
@@ -9,7 +9,7 @@
 /* Add @font-face rules for EB Garamond - Italic Style */
 @font-face {
     font-family: 'EB Garamond';
-    src: url('/fonts/EB-Garamond/eb-garamond-v27-latin-italic.woff2') format('woff2');
+    src: url('./fonts/EB-Garamond/eb-garamond-v27-latin-italic.woff2') format('woff2');
     font-weight: 400; /* Normal weight */
     font-style: italic;
 }
