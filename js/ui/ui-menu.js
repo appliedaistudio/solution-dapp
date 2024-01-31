@@ -1,9 +1,13 @@
 // Import functions from external libraries as needed
 import { logoutUser } from './ui-auth.js';
 
-// Define a mapping from option names to functions
+// Define a mapping from option names to objects containing function and params
 const optionFunctionMappings = {
-  'logoutUser': logoutUser // These keys should match option names
+  'Logout': { 
+      func: logoutUser, // The function to execute
+      params: [] // Parameters to pass to the function
+  }
+  // Add other options here as needed
 };
 
 export function loadMenu(db, menuId) {
@@ -42,7 +46,7 @@ export function loadMenu(db, menuId) {
           item.addEventListener('click', function(event) {
               event.preventDefault(); // Prevent default anchor behavior
               const optionName = this.getAttribute('data-option');
-              executeMenuOption(optionName);
+              executeMenuOption(db, optionName); // Pass the db to executeMenuOption
           });
       });
 
@@ -51,14 +55,22 @@ export function loadMenu(db, menuId) {
   });
 }
 
-function executeMenuOption(optionName) {
-    alert(`Menu option clicked: ${optionName}`);
+function executeMenuOption(db, optionName) {
+  alert(`Menu option clicked: ${optionName}`);
 
-    if (optionFunctionMappings.hasOwnProperty(optionName)) {
-      // Call the mapped function for the given optionName
-      optionFunctionMappings[optionName]();
-    } else {
+  if (optionFunctionMappings.hasOwnProperty(optionName)) {
+      const mapping = optionFunctionMappings[optionName];
+
+      // Check if params is an array and if so, make a copy and unshift the db to the parameters
+      if (Array.isArray(mapping.params)) {
+          const paramsWithDb = [db, ...mapping.params];
+          mapping.func(...paramsWithDb);
+      } else {
+          // Call the function with db as the only parameter
+          mapping.func(db);
+      }
+  } else {
       alert(`No function found for menu option: ${optionName}`);
       console.error(`No function found for menu option: ${optionName}`);
-    }
   }
+}

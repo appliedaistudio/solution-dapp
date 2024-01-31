@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     isLoggedIn(localDb).then(loggedIn => {
         if (!loggedIn) {
             sessionStorage.setItem('lastVisitedPage', window.location.href);
-            window.location.replace('/login.html');
+            window.location.replace('./login.html');
         } else {
             console.log('A user is currently logged in.');
             loadMenu(localDb, 'hello_world_menu');

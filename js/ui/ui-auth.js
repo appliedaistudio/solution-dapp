@@ -59,6 +59,9 @@ async function logoutUser(db) {
       await db.remove(currentSession);
       
       console.log('User logged out successfully');
+
+      // Refresh the page after logout
+      window.location.reload();
   } catch (err) {
       console.error('Logout failed:', err);
   }
