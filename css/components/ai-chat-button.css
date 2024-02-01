@@ -1,0 +1,25 @@
+.ai-chat-button {
+    background-color: #007bff; /* Use a distinctive color, possibly your brand color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px; /* Smaller width */
+    height: 40px; /* Smaller height */
+    display: inline-flex; /* Using flex to center content */
+    align-items: center; /* Align items vertically */
+    justify-content: center; /* Align items horizontally */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's above other elements */
+    position: relative; /* Needed for absolute positioning of pseudo-element */
+}
+
+.ai-chat-button::before {
+    content: '\f4ad'; /* Unicode for FontAwesome 'robot' icon */
+    font-family: 'Font Awesome 5 Free'; /* Adjust depending on the version you are using */
+    font-weight: 900; /* Ensure solid style is used */
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* Please note that the unicodes may differ based on the icon and font family used */
