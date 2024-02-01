@@ -28,3 +28,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* App title spacing */
+#app-title {
+    margin-bottom: 2rem; /* Adjust the value as needed for moderate spacing */
+}
+
+/* Main content spacing */
+#main-content {
+    margin-bottom: 2rem; /* Adjust the value as needed for moderate spacing */
+}
