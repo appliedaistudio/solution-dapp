@@ -1,80 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic HTML document setup -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- PWA manifest file -->
+    <!-- Link to the Progressive Web App's manifest file -->
     <link rel="manifest" href="./manifest.json">
 
+    <!-- Page title -->
     <title>Hello World App</title>
 
-    <!-- Library stylesheets-->
-    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./lib/fontawesome/css/all.min.css">
+    <!-- Library stylesheets -->
+    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css"> <!-- Bootstrap CSS for styling and components -->
+    <link rel="stylesheet" href="./lib/fontawesome/css/all.min.css"> <!-- FontAwesome for icons -->
     
-    <!-- Custom stylesheets. This should be linked after the library style sheets-->
-    <link rel="stylesheet" href="./css/base/variables.css">
-    <link rel="stylesheet" href="./css/base/base.css">
-    <link rel="stylesheet" href="./css/base/typography.css">
-    <link rel="stylesheet" href="./css/layout/layout.css">
-    <link rel="stylesheet" href="./css/components/buttons.css">
-    <link rel="stylesheet" href="./css/components/menu.css">
-    <link rel="stylesheet" href="./css/components/controls.css">
-    <link rel="stylesheet" href="./css/components/ai-chat-button.css">
-    <link rel="stylesheet" href="./css/utils/responsive.css">
+    <!-- Custom stylesheets linked in a specific order for correct cascading -->
+    <link rel="stylesheet" href="./css/base/variables.css"> <!-- CSS variables for consistent theming -->
+    <link rel="stylesheet" href="./css/base/base.css"> <!-- Base custom styles -->
+    <link rel="stylesheet" href="./css/layout/layout.css"> <!-- Layout specific styles -->
+    <link rel="stylesheet" href="./css/components/buttons.css"> <!-- Button component styles -->
+    <link rel="stylesheet" href="./css/components/menu.css"> <!-- Menu component styles -->
+    <link rel="stylesheet" href="./css/components/controls.css"> <!-- Form controls custom styles -->
+    <link rel="stylesheet" href="./css/components/ai-chat-button.css"> <!-- Custom style for the AI chat button -->
+    <link rel="stylesheet" href="./css/utils/responsive.css"> <!-- Utility styles for responsiveness -->
 
-    <!-- Add bcryptjs library for global availability -->
-    <script src="./lib/bcrypt/js/bcrypt.min.js"></script>
+    <script src="./lib/bcrypt/js/bcrypt.min.js"></script> <!-- External library for encryption -->
 </head>
 <body class="text-center">
     <script>
+        // Checking and registering a Service Worker for PWA capabilities
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./service-worker.js')
-                .then(function(registration) {
-                    console.log('Service Worker registration successful with scope:', registration.scope);
-                })
-                .catch(function(error) {
-                    console.log('Service Worker registration failed:', error);
-                });
+            navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+                console.log('Service Worker registration successful with scope:', registration.scope);
+            }).catch(function(error) {
+                console.log('Service Worker registration failed:', error);
+            });
         }
     </script>
+    
+    <!-- Main application container  -->
     <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
+        <!-- Content container -->
         <div id="app-content" class="bg-dark text-white p-4 rounded-lg">
-
-            <!-- Menu content will be dynamically filled -->
+            <!-- Placeholder for dynamic menu content -->
             <div id="menu-container" class="mb-3 mb-md-4 mb-lg-5"></div>
 
-            <!-- App title will be dynamically filled -->
+            <!-- Dynamically filled app title -->
             <h1 id="app-title">Hello World</h1>
 
-            <!-- Main content will be dynamically filled -->
+            <!-- Main content area -->
             <div id="main-content">
                 <p>Here's a short message in the main content area.</p>
+                <!-- AI Chat Button using custom styles and Bootstrap data attributes to control modal -->
+                <button class="ai-chat-button" data-bs-toggle="modal" data-bs-target="#chatModal"></button>
             </div>
 
-            <!-- Main content controls will be dynamically filled -->
+            <!-- Placeholder for dynamic controls related to main content -->
             <div id="main-content-controls"></div>
         </div>
     </div>
     
-    <!-- External libraries. These should be loaded before the custom scripts.-->
-    <script src="./lib/pouchdb/pouchdb.min.js"></script>
-    <script src="./lib/vibrant/vibrant.min.js"></script>
-    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Inline script to directly run updateThemeColorsBasedOnImage when the DOM is ready -->
+    <!-- Bootstrap Modal setup for AI Chat -->
+    <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal header with close button -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatModalLabel">AI Chat</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Modal body where chat content will be placed -->
+                <div class="modal-body">
+                    <!-- Start of provided chat app structure -->
+                    <section style="background-color: #eee;">
+                        <div class="container py-5">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-8 col-lg-6 col-xl-4">
+                                    <div class="card" id="chat1" style="border-radius: 15px;">
+                                        <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                                            <i class="fas fa-angle-left"></i>
+                                            <p class="mb-0 fw-bold">Live chat</p>
+                                            <i class="fas fa-times"></i>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Chat messages go here -->
+                                            <!-- Dynamically include messages here to make it interactive -->
+                                        </div>
+                                        <div class="form-outline">
+                                            <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                                            <label class="form-label" for="textAreaExample">Type your message</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End of provided chat app structure -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- External libraries and custom scripts -->
+    <script src="./lib/pouchdb/pouchdb.min.js"></script> <!-- PouchDB for client-side database storage -->
+    <script src="./lib/vibrant/vibrant.min.js"></script> <!-- Vibrant.js for extracting prominent colors from images -->
+    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS for modal functionality -->
     <script type="module">
-        import { updateThemeColorsBasedOnImage } from './js/ui/ui-color-extractor.js';
-        import config from './js/dapp-config.js';
-  
+        import { updateThemeColorsBasedOnImage } from './js/ui/ui-color-extractor.js'; // Example of importing a custom module function
+        import config from './js/dapp-config.js'; // Configuration import
+        
+        // DOMContentLoaded event to initialize any processes after the HTML document has been completely loaded
         document.addEventListener('DOMContentLoaded', () => {
             updateThemeColorsBasedOnImage(config.backgroundImage);
         });
     </script>
-
-    <!-- Custom scripts. The order of these scripts is important -->
-    <script type="module" src="./js/ui/ui-auth.js"></script>
-    <script type="module" src="./js/dapp.js"></script>
+    <script type="module" src="./js/ui/ui-auth.js"></script> <!-- Script for UI authentication handling -->
+    <script type="module" src="./js/dapp.js"></script> <!-- Main JavaScript entry point for app-specific scripts -->
 </body>
 </html>
