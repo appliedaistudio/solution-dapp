@@ -1,7 +1,6 @@
 .menu-group .menu-button {
     font-family: inherit;
     color: var(--font-color);
-    
     border-color: var(--neutral-color);
     border: none; /* Set border to none for menu buttons */
 }
@@ -12,17 +11,18 @@
 
 .control-button {
     font-family: inherit;
-    color: var(--font-color);
-    background-color: var(--light-color);
-    border-color: var(--neutral-color);
+    color: var(--font-color); /* Using --font-color for text color */
+    background-color: var(--neutral-color-bg); /* Adjusted to --neutral-color-bg for background */
+    border-color: var(--neutral-color); /* Color for the border */
     border: none; /* Set border to none for control buttons */
+    margin: 0.3em; /* Added to create spacing around the control buttons */
 }
 
 .control-button:hover {
-    color: var(--light-color);
-    background-color: var(--accent-color);
+    color: var(--light-color); /* Color of text on hover */
+    background-color: var(--accent-color); /* Background color on hover */
 }
 
 .control-button i {
-    color: inherit;
+    color: inherit; /* Icon color inherits from the button text color */
 }
