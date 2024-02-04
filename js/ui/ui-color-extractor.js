@@ -38,12 +38,17 @@ export function updateThemeColorsBasedOnImage(imagePath) {
             const accentColorRGB = hexToRGB(accentColorHex);
             const lightColorRGB = hexToRGB(lightColorHex);
 
+
             // Apply these colors to the CSS
+            // Assume neutralColorRGB, accentColorRGB, and lightColorRGB are already computed as comma-separated strings
             const rootStyle = document.documentElement.style;
-            rootStyle.setProperty('--neutral-color', neutralColorRGB);
-            rootStyle.setProperty('--accent-color', accentColorRGB);
-            rootStyle.setProperty('--light-color', lightColorRGB);
-            rootStyle.setProperty('--font-color', lightColorRGB);
+            rootStyle.setProperty('--neutral-color', `rgb(${neutralColorRGB})`);
+            rootStyle.setProperty('--accent-color', `rgb(${accentColorRGB})`);
+            rootStyle.setProperty('--light-color', `rgb(${lightColorRGB})`);
+            rootStyle.setProperty('--font-color', `rgb(${lightColorRGB})`);
+
+            // Set a semi-transparent version of the neutral color as a CSS variable
+            rootStyle.setProperty('--neutral-color-bg', `rgba(${neutralColorRGB}, 0.8)`);
         }
     };
     
