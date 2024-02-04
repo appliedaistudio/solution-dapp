@@ -15,7 +15,7 @@
     background-color: var(--neutral-color-bg) !important; /* Sets the background color using a CSS variable, ensuring opacity can be managed via the variable */
     padding: 2rem; /* Provides space around the content inside the box */
     border-radius: 0.5rem; /* Rounds the corners of the app content box */
-    color: var(--font-color); /* Sets the text color using a CSS variable */
+    color: var(--font-color) !important; /* Sets the text color using a CSS variable */
     box-sizing: border-box; /* Makes sure padding and border are included in the total width and height */
     
     width: 100%; /* Use 100% of the container width, adjusting to the container's width */

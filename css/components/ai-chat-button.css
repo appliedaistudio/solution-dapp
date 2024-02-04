@@ -1,25 +1,33 @@
 .ai-chat-button {
-    background-color: #007bff; /* Use a distinctive color, possibly your brand color */
-    color: white;
+    background-color: var(--accent-color); /* Using accent color to ensure the button stands out on a neutral background */
+    color: var(--light-color); /* Assuming light color provides good contrast against the accent color */
     border: none;
     border-radius: 50%;
-    width: 40px; /* Smaller width */
-    height: 40px; /* Smaller height */
-    display: inline-flex; /* Using flex to center content */
-    align-items: center; /* Align items vertically */
-    justify-content: center; /* Align items horizontally */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    width: 40px; 
+    height: 40px; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Adding a shadow for better visibility and depth */
     cursor: pointer;
-    z-index: 1000; /* Ensure it's above other elements */
-    position: relative; /* Needed for absolute positioning of pseudo-element */
+    z-index: 1000; 
+    position: relative;
 }
 
 .ai-chat-button::before {
-    content: '\f4ad'; /* Unicode for FontAwesome 'robot' icon */
-    font-family: 'Font Awesome 5 Free'; /* Adjust depending on the version you are using */
-    font-weight: 900; /* Ensure solid style is used */
+    content: '\f4ad'; /* FontAwesome 'robot' icon */
+    font-family: 'Font Awesome 5 Free'; 
+    font-weight: 900; 
     font-size: 20px;
     line-height: 1;
 }
 
-/* Please note that the unicodes may differ based on the icon and font family used */
+/* Additional styling for interaction states could improve user experience */
+.ai-chat-button:hover,
+.ai-chat-button:focus {
+    background-color: var(--secondary-accent-color); /* Change background color on hover/focus to secondary accent color for visual feedback */
+    color: var(--neutral-color); /* Switch text/icon color to neutral color for contrast */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for a refined user experience */
+}
+
+/* Ensure you have the correct FontAwesome version and icon code */
