@@ -9,18 +9,22 @@
     background-color: var(--accent-color);
 }
 
-.control-button {
+.control-button, .form-signin .btn {
     font-family: inherit;
-    color: var(--font-color); /* Using --font-color for text color */
-    background-color: var(--neutral-color-bg); /* Adjusted to --neutral-color-bg for background */
-    border-color: var(--neutral-color); /* Color for the border */
-    border: none; /* Set border to none for control buttons */
-    margin: 0.3em; /* Added to create spacing around the control buttons */
+    color: var(--light-color); /* Use white or light color for text for contrast */
+    background-color: var(--neutral-color); /* Assuming this is your neutral background color */
+    border: 2px solid var(--accent-color); /* Provides definition and contrast */
+    padding: 0.375rem 0.75rem; /* Adjusted for visual balance */
+    font-size: 1rem; /* Ensures readability */
+    line-height: 1.5; /* Comfortable line height */
+    border-radius: 0.25rem; /* Soften edges */
+    margin: 0.3em; /* Maintains spacing */
 }
 
-.control-button:hover {
-    color: var(--light-color); /* Color of text on hover */
-    background-color: var(--accent-color); /* Background color on hover */
+.control-button:hover, .form-signin .btn:hover {
+    color: var(--neutral-color); /* Revert text color for contrast on hover */
+    background-color: var(--accent-color); /* Ensure noticeable change on hover */
+    border-color: var(--light-color); /* Lighten border on hover for differentiation */
 }
 
 .control-button i {
