@@ -31,19 +31,21 @@ export function updateThemeColorsBasedOnImage(imagePath) {
             // Define the specific swatches you want to use
             let neutralColorHex = swatches.DarkMuted ? swatches.DarkMuted.getHex() : '#999'; // Fallback if undefined
             let accentColorHex = swatches.Vibrant ? swatches.Vibrant.getHex() : '#f00'; // Fallback if undefined
+            let secondaryAccentColorHex = swatches.Muted ? swatches.Muted.getHex() : '#00f'; // Fallback if undefined
             let lightColorHex = swatches.LightVibrant ? swatches.LightVibrant.getHex() : '#fff'; // Fallback if undefined
 
             // Convert the Hex color theme to RGB
             const neutralColorRGB = hexToRGB(neutralColorHex);
             const accentColorRGB = hexToRGB(accentColorHex);
             const lightColorRGB = hexToRGB(lightColorHex);
-
+            const secondaryAccentColorRGB = hexToRGB(secondaryAccentColorHex);
 
             // Apply these colors to the CSS
             // Assume neutralColorRGB, accentColorRGB, and lightColorRGB are already computed as comma-separated strings
             const rootStyle = document.documentElement.style;
             rootStyle.setProperty('--neutral-color', `rgb(${neutralColorRGB})`);
             rootStyle.setProperty('--accent-color', `rgb(${accentColorRGB})`);
+            rootStyle.setProperty('--secondary-accent-color', `rgb(${secondaryAccentColorRGB})`);
             rootStyle.setProperty('--light-color', `rgb(${lightColorRGB})`);
             rootStyle.setProperty('--font-color', `rgb(${lightColorRGB})`);
 
