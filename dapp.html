@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Linking to manifest file and setting title -->
     <link rel="manifest" href="./manifest.json">
     <title>Hello World App</title>
+    
+    <!-- Linking to external CSS libraries -->
     <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./lib/fontawesome/css/all.min.css">
     
-    <!-- Other Custom Styles -->
+    <!-- Custom CSS styles -->
     <link rel="stylesheet" href="./css/base/variables.css">
     <link rel="stylesheet" href="./css/base/base.css">
     <link rel="stylesheet" href="./css/base/typography.css">
@@ -20,32 +25,82 @@
     <link rel="stylesheet" href="./css/components/ai-chat.css">
     <link rel="stylesheet" href="./css/utils/responsive.css">
 
-    <!-- Used to encrypt user passwords-->
+    <!-- Script for password encryption -->
     <script src="./lib/bcrypt/js/bcrypt.min.js"></script>
 </head>
 <body class="text-center">
-    <script>
+
+    <!-- Registering the service worker -->
+    <script type="module">
+        import config from './js/dapp-config.js';
+  
         if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
             navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
-                console.log('Service Worker registration successful with scope:', registration.scope);
+              console.log('Service Worker registration successful with scope:', registration.scope);
+  
+              // Ensuring service worker is controlling the page before sending a message.
+              if (navigator.serviceWorker.controller) {
+                // Sending a message to the service worker with the interval value.
+                navigator.serviceWorker.controller.postMessage({
+                  type: 'SET_INTERVAL',
+                  interval: config.notificationCheckInterval,
+                });
+              } else {
+                navigator.serviceWorker.ready.then((registration) => {
+                  registration.active.postMessage({
+                    type: 'SET_INTERVAL',
+                    interval: config.notificationCheckInterval,
+                  });
+                });
+              }
             }).catch(function(error) {
-                console.log('Service Worker registration failed:', error);
+              console.log('Service Worker registration failed:', error);
             });
+          });
         }
     </script>
+
+    <!-- Script for requesting notification permission -->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Checking if Notification API is available
+            if ('Notification' in window) {
+                // Checking if permission is granted or denied
+                if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+                    // Requesting permission from the user
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            console.log("Notification permission granted.");
+                            // Now you can use the Notification API to send notifications
+                        }
+                    });
+                }
+            } else {
+                console.log("This browser does not support desktop notification");
+            }
+        });
+    </script>
     
+    <!-- App container -->
     <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
         <div id="app-content" class="bg-dark text-white p-4 rounded-lg">
+            <!-- Menu container -->
             <div id="menu-container" class="mb-3 mb-md-4 mb-lg-5"></div>
+            <!-- App title -->
             <h1 id="app-title">Hello World</h1>
+            <!-- Main content -->
             <div id="main-content">
                 <p>Here's a short message in the main content area.</p>
+                <!-- Button to open chat modal -->
                 <button class="ai-chat-button" data-bs-toggle="modal" data-bs-target="#chatModal"></button>
             </div>
+            <!-- Main content controls -->
             <div id="main-content-controls"></div>
         </div>
     </div>
     
+    <!-- Chat modal -->
     <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -57,16 +112,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <!-- Chat conversations list -->
                         <div class="col-md-4 chat-conversations-list" style="border-right: 1px solid #ddd;">
                             <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(1)">Conversation 1</button>
                             <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(2)">Conversation 2</button>
                         </div>
+                        <!-- Chat window -->
                         <div class="col-md-8">
                             <div class="card chat-window" id="chat-window">
                                 <div class="card-header chat-header d-flex justify-content-between align-items-center p-3">
                                     <p class="mb-0 fw-bold">Selected Conversation</p>
                                 </div>
                                 <div class="card-body chat-body"></div>
+                                <!-- Chat input group -->
                                 <div class="input-group chat-input-group mb-3">
                                     <button class="chat-voice-btn" onclick="startVoiceToText()">
                                         <i class="fas fa-microphone"></i>
@@ -76,6 +134,7 @@
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
                                 </div>
+                                <!-- Suggested chat messages -->
                                 <div class="chat-suggested-messages">
                                     <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Hello!')">Hello!</button>
                                     <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Can you help me?')">Can you help me?</button>
@@ -94,16 +153,24 @@
     <script src="./lib/vibrant/vibrant.min.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="module">
+        // Importing functions and configurations
         import { updateThemeColorsBasedOnImage } from './js/ui/ui-color-extractor.js';
         import config from './js/dapp-config.js';
-        document.addEventListener('DOMContentLoaded', () => {
+        
+        // Updating theme colors based on image
+       
+
+ document.addEventListener('DOMContentLoaded', () => {
             updateThemeColorsBasedOnImage(config.backgroundImage);
         });
     </script>
+    <!-- Scripts for UI authentication and main application logic -->
     <script type="module" src="./js/ui/ui-auth.js"></script>
     <script type="module" src="./js/dapp.js"></script>
 
+    <!-- JavaScript functions -->
     <script>
+        // Function to send a message
         function sendMessage(messageText = null) {
             const messageInput = document.getElementById('messageInput');
             const message = messageText || messageInput.value;
@@ -111,10 +178,12 @@
             messageInput.value = '';
         }
 
+        // Function to start voice-to-text
         function startVoiceToText() {
             console.log("Voice-to-text entry started");
         }
 
+        // Function to switch conversation
         function switchConversation(conversationId) {
             document.querySelectorAll('.chat-conversation-btn').forEach(btn => {
                 btn.classList.remove('active');

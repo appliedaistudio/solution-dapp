@@ -5,7 +5,8 @@ const config = {
     remoteDbPassword: 'your_couchdb_password',
     localDbName: 'my_local_database', // Name of your local PouchDB
     backgroundImage: './images/background.jpg',
-    homePage: './index.html'
+    homePage: './index.html',
+    notificationCheckInterval: 6, // X seconds
 };
 
 export default config;
