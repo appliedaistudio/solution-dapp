@@ -30,20 +30,24 @@
 <body class="text-center">
     <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
         <div id="app-content" class="bg-dark text-white p-4 rounded-lg">
-            <div id="menu-container" class="mb-3 mb-md-4 mb-lg-5"></div>
+            <nav id="menu-container" class="mb-3 mb-md-4 mb-lg-5" aria-label="Main Navigation">
+                <!-- Navigation content goes here -->
+            </nav>
             <h1 id="app-title">Please sign in</h1>
             <div id="main-content">
                 <!-- Begin login form -->
                 <form id="loginForm" class="form-signin">
                     <div class="mb-3">
                         <label for="username" class="sr-only">Username</label>
-                        <input type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+                        <input type="text" id="username" class="form-control" placeholder="Username" required autofocus tabindex="1" aria-describedby="username-tooltip">
+                        <div id="username-tooltip" class="form-text">Please enter your username (e.g., john_doe).</div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="sr-only">Password</label>
-                        <input type="password" id="password" class="form-control" placeholder="Password" required>
+                        <input type="password" id="password" class="form-control" placeholder="Password" required tabindex="2" aria-describedby="password-tooltip">
+                        <div id="password-tooltip" class="form-text">Please enter your password.</div>
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block control-button" type="submit">Sign in</button>
+                    <button class="btn btn-lg btn-primary btn-block control-button" type="submit" tabindex="3" aria-label="Sign in Button" title="Click to sign in">Sign in</button>
                 </form>
                 <!-- End login form -->
             </div>
