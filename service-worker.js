@@ -58,22 +58,43 @@ self.addEventListener('message', (event) => {
   }
 });
 
+// Adjusting startTimer to request the latest notification body from the main thread before sending notification
 function startTimer() {
   console.log('[Service Worker] Starting timer');
-
-  function sendNotification() {
-    // Send the notification using the latest stored body message
-    self.registration.showNotification("Hello World", { body: latestNotificationBody })
-        .then(() => console.log('[Service Worker] Notification displayed'))
-        .catch(err => console.error('[Service Worker] Error displaying notification:', err));
-
-    // Resetting the timer for the next notification
-    notificationTimer = setTimeout(sendNotification, timeInterval);
-  }
-
-  // Clears any existing timer and sets a new one
-  if (notificationTimer) {
-    clearTimeout(notificationTimer);
-  }
-  notificationTimer = setTimeout(sendNotification, timeInterval);
+  requestNotificationBodyAndSend();
 }
+
+function requestNotificationBodyAndSend() {
+  // Ask the main thread for the latest notification body message
+  self.clients.matchAll({ type: 'window' }).then(clients => {
+      if (clients && clients.length) {
+          // Assuming you want to request the body from just one client
+          clients[0].postMessage({ type: 'REQUEST_NOTIFICATION_BODY' });
+      }
+  });
+}
+
+// Reset the timer for the next notification after sending one
+function resetTimer() {
+  if (notificationTimer) {
+      clearTimeout(notificationTimer);
+  }
+  notificationTimer = setTimeout(requestNotificationBodyAndSend, timeInterval);
+}
+
+// Listen for messages from the main thread
+self.addEventListener('message', event => {
+  // Expecting a message with the latest notification body
+  if (event.data && event.data.type === 'NOTIFICATION_BODY_RESPONSE') {
+      const notificationBody = event.data.body;
+      // Now, send the notification with the received body
+      self.registration.showNotification("Latest Notification", { body: notificationBody })
+          .then(() => console.log('[Service Worker] Notification displayed'))
+          .catch(err => console.error('[Service Worker] Error displaying notification:', err));
+      
+      // Reset the timer for the next notification
+      resetTimer();
+  }
+});
+
+startTimer(); // Start the timer initially
