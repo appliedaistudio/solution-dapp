@@ -84,17 +84,16 @@ function resetTimer() {
 
 // Listen for messages from the main thread
 self.addEventListener('message', event => {
-  // Expecting a message with the latest notification body
   if (event.data && event.data.type === 'NOTIFICATION_BODY_RESPONSE') {
-      const notificationBody = event.data.body;
-      // Now, send the notification with the received body
-      self.registration.showNotification("Latest Notification", { body: notificationBody })
+      const notificationBody = event.data.body || "No new notifications.";
+      self.registration.showNotification("New Notification", { body: notificationBody })
           .then(() => console.log('[Service Worker] Notification displayed'))
           .catch(err => console.error('[Service Worker] Error displaying notification:', err));
       
       // Reset the timer for the next notification
       resetTimer();
   }
+  // Handling other types like SET_INTERVAL remains the same
 });
 
 startTimer(); // Start the timer initially

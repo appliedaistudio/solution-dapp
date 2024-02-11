@@ -27,6 +27,10 @@
 
     <!-- Script for password encryption -->
     <script src="./lib/bcrypt/js/bcrypt.min.js"></script>
+
+    <!-- External library for PouchDB. This must be done before the messaging script that uses PouchDB -->
+    <script src="./lib/pouchdb/pouchdb.min.js"></script>
+
 </head>
 <body class="text-center">
 
@@ -83,19 +87,48 @@
     </script>
 
     <!-- Script for adding an event listener to receive messages from the service worker-->
-    <script>
-        navigator.serviceWorker.addEventListener('message', event => {
+    <script type="module">
+        
+        import config from './js/dapp-config.js';
+    
+        // Initialize PouchDB
+        const db = new PouchDB(config.localDbName);
+    
+        // Listen for message from service worker
+        navigator.serviceWorker.addEventListener('message', async event => {
             if (event.data && event.data.type === 'REQUEST_NOTIFICATION_BODY') {
-                // Prepare the notification body message
-                const notificationBody = "This is the dynamically generated notification body message.";
-                
-                // Respond to the service worker with the notification message.
-                // Note: you need to get a reference to the ServiceWorker object e.g., via navigator.serviceWorker.controller
-                if (navigator.serviceWorker.controller) {
-                    navigator.serviceWorker.controller.postMessage({
-                        type: 'NOTIFICATION_BODY_RESPONSE',
-                        body: notificationBody
-                    });
+                try {
+                    // Fetch the document 'notifications' including the current _rev value
+                    const response = await db.get('notifications');
+                    // Extracting the first pending notification
+                    const notification = response.notifications.find(n => n.status === "pending");
+                    if (notification) {
+                        // Respond to the service worker with the latest notification body
+                        if (navigator.serviceWorker.controller) {
+                            navigator.serviceWorker.controller.postMessage({
+                                type: 'NOTIFICATION_BODY_RESPONSE',
+                                body: notification.body
+                            });
+                        }
+                        // Update the notification status as 'sent'
+                        notification.status = "sent";
+                        try {
+                            // Attempt to update the document with the new status
+                            await db.put(response);
+                        } catch (updateError) {
+                            // If there's a conflict error, fetch the latest document and retry the update
+                            if (updateError.name === 'conflict') {
+                                const latestResponse = await db.get('notifications');
+                                // Use the _rev value from the latest fetched document
+                                response._rev = latestResponse._rev;
+                                await db.put(response);
+                            } else {
+                                throw updateError; // For any other errors, rethrow them
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error('Error fetching or updating notification from PouchDB:', err);
                 }
             }
         });
@@ -168,7 +201,6 @@
     </div>
     
     <!-- External libraries and scripts -->
-    <script src="./lib/pouchdb/pouchdb.min.js"></script>
     <script src="./lib/vibrant/vibrant.min.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="module">
