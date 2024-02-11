@@ -178,15 +178,7 @@
                                     <p class="mb-0 fw-bold">Selected Conversation</p>
                                 </div>
                                 <div class="card-body chat-body">
-                                    <!-- Default and suggested responses -->
-                                    <div class="chat-suggested-messages">
-                                        <!-- Default responses -->
-                                        <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Hello!')" title="Send 'Hello!'">Hello!</button>
-                                        <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Can you help me?')" title="Send 'Can you help me?'">Can you help me?</button>
-                                        <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Thank you!')" title="Send 'Thank you!'">Thank you!</button>
-                                        <!-- Suggested responses -->
-                                        <!-- These will be dynamically loaded -->
-                                    </div>
+                                    
                                 </div>
                                 <!-- Chat input group -->
                                 <div class="input-group chat-input-group mb-3">
@@ -198,6 +190,17 @@
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
                                 </div>
+
+                                <!-- Default and suggested responses -->
+                                <div class="chat-suggested-messages">
+                                    <!-- Default responses -->
+                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Hello!')" title="Send 'Hello!'">Hello!</button>
+                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Can you help me?')" title="Send 'Can you help me?'">Can you help me?</button>
+                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Thank you!')" title="Send 'Thank you!'">Thank you!</button>
+                                    <!-- Suggested responses -->
+                                    <!-- These will be dynamically loaded -->
+                                </div>
+                                
                                 <!-- Dropdown for selecting different responses -->
                                 <div class="dropdown mt-3">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="responseDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--neutral-color); color: var(--light-color); width: 100%;">
