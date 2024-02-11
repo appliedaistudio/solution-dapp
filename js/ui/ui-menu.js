@@ -3,7 +3,7 @@ import { logoutUser } from './ui-auth.js';
 
 // Define a mapping from option names to objects containing function and params
 const optionFunctionMappings = {
-  'Logout': { 
+  'Logout': {
       func: logoutUser, // The function to execute
       params: [] // Parameters to pass to the function
   }
@@ -17,6 +17,7 @@ export function loadMenu(db, menuId) {
 
       menuOptions.forEach(option => {
           // Use class 'menu-button' and 'dropdown-toggle' for button styling
+          // Including tooltip in button title attribute
           menuHtml += `
               <div class="btn-group" role="group">
                   <button id="btn-${option._id}"
@@ -24,14 +25,15 @@ export function loadMenu(db, menuId) {
                       class="btn menu-button dropdown-toggle"
                       data-bs-toggle="dropdown"
                       aria-haspopup="true"
-                      aria-expanded="false">
+                      aria-expanded="false"
+                      title="${option.tooltip}">
                       ${option.name}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="btn-${option._id}">`;
 
-          // Use class 'dropdown-item' for each item styling
+          // Use class 'dropdown-item' for each item styling, including tooltip in title attribute
           option.items.forEach(item => {
-              menuHtml += `<a class="dropdown-item" href="#" data-option="${item}">${item}</a>`;
+              menuHtml += `<a class="dropdown-item" href="#" data-option="${item.name}" title="${item.tooltip}">${item.name}</a>`;
           });
 
           menuHtml += '</div></div>';
