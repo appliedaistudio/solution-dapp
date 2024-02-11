@@ -7,7 +7,9 @@ const urlsToCache = [
 
 let timeInterval = 10000; // Default time interval set to 10 seconds
 let notificationTimer = null; // Reference for the notification timer
+let latestNotificationBody = "Default notification message."; // Globally stores the latest notification body
 
+// Install event handler
 self.addEventListener('install', event => {
   console.log('[Service Worker] Install event');
   event.waitUntil(
@@ -19,12 +21,14 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('activate', (event) => {
+// Activate event handler
+self.addEventListener('activate', event => {
   console.log('[Service Worker] Activate event');
   clients.claim();
   startTimer(); // Start the timer when the service worker is activated
 });
 
+// Fetch event handler
 self.addEventListener('fetch', event => {
   console.log(`[Service Worker] Fetch event for ${event.request.url}`);
   event.respondWith(
@@ -40,39 +44,36 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Add a listener for incoming messages
+// Message event handler to handle all incoming messages in a consolidated manner
 self.addEventListener('message', (event) => {
   console.log('[Service Worker] Received message:', event.data);
-  if (event.data && event.data.type === 'SET_INTERVAL') {
-    timeInterval = event.data.payload.interval;
+
+  if (event.data.type === 'SET_INTERVAL') {
+    timeInterval = event.data.interval;
     console.log('[Service Worker] Time Interval has been set to:', timeInterval);
     startTimer(); // Restart the timer with the new interval
+  } else if (event.data.type === 'NOTIFICATION_BODY_RESPONSE') {
+    // Save the notification body received from the main thread
+    latestNotificationBody = event.data.body || "Default notification message.";
   }
 });
 
 function startTimer() {
   console.log('[Service Worker] Starting timer');
-  // Clear any existing timer
+
+  function sendNotification() {
+    // Send the notification using the latest stored body message
+    self.registration.showNotification("Hello World", { body: latestNotificationBody })
+        .then(() => console.log('[Service Worker] Notification displayed'))
+        .catch(err => console.error('[Service Worker] Error displaying notification:', err));
+
+    // Resetting the timer for the next notification
+    notificationTimer = setTimeout(sendNotification, timeInterval);
+  }
+
+  // Clears any existing timer and sets a new one
   if (notificationTimer) {
     clearTimeout(notificationTimer);
-    console.log('[Service Worker] Cleared existing timer');
   }
-  
-  // Function to send a notification
-  function sendNotification() {
-    console.log('[Service Worker] Sending notification');
-    self.registration.showNotification("Hello World", {
-        body: "Periodic notification based on set interval."
-    }).then(() => {
-      console.log('[Service Worker] Notification displayed');
-    }).catch((err) => {
-      console.log('[Service Worker] Error displaying notification:', err);
-    });
-    // Restart the timer for the next notification
-    notificationTimer = setTimeout(sendNotification, timeInterval);
-    console.log(`[Service Worker] Timer set for next notification in ${timeInterval} ms`);
-  }
-  
-  // Start the initial notification timer
   notificationTimer = setTimeout(sendNotification, timeInterval);
 }

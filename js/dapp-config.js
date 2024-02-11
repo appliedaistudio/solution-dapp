@@ -6,7 +6,7 @@ const config = {
     localDbName: 'my_local_database', // Name of your local PouchDB
     backgroundImage: './images/background.jpg',
     homePage: './index.html',
-    notificationCheckInterval: 6, // X seconds
+    notificationCheckInterval: 360000, // X miliseconds
 };
 
 export default config;

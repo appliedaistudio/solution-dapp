@@ -81,6 +81,25 @@
             }
         });
     </script>
+
+    <!-- Script for adding an event listener to receive messages from the service worker-->
+    <script>
+        navigator.serviceWorker.addEventListener('message', event => {
+            if (event.data && event.data.type === 'REQUEST_NOTIFICATION_BODY') {
+                // Prepare the notification body message
+                const notificationBody = "This is the dynamically generated notification body message.";
+                
+                // Respond to the service worker with the notification message.
+                // Note: you need to get a reference to the ServiceWorker object e.g., via navigator.serviceWorker.controller
+                if (navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.controller.postMessage({
+                        type: 'NOTIFICATION_BODY_RESPONSE',
+                        body: notificationBody
+                    });
+                }
+            }
+        });
+    </script>
     
     <!-- App container -->
     <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
