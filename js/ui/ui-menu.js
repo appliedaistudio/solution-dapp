@@ -30,8 +30,7 @@ export function loadMenu(db, menuId) {
                         data-bs-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
-                        title="${option.tooltip}"  // Use tooltip from data
-                        tabindex="${index+1}">
+                        title="${option.tooltip}">
                         ${option.name}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="${optionId}">`;
@@ -39,7 +38,7 @@ export function loadMenu(db, menuId) {
             // Use class 'dropdown-item' for each item styling, including tooltip (title) directly from data
             option.items.forEach((item, itemIndex) => {
                 const itemId = `${optionId}-item-${itemIndex}`;
-                menuHtml += `<a id="${itemId}" class="dropdown-item" href="#" data-option="${item.name}" title="${item.tooltip}" tabindex="${index+1}.${itemIndex+1}">${item.name}</a>`; // Use tooltip from data, provide unique id and tabindex
+                menuHtml += `<a id="${itemId}" class="dropdown-item" href="#" data-option="${item.name}" title="${item.tooltip}">${item.name}</a>`; // Use tooltip from data, provide unique id
             });
 
             menuHtml += '</div></div>';

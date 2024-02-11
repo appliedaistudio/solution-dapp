@@ -6,9 +6,6 @@ export function loadMainContentControls(db, controlsId) {
       controlsContainer.id = 'controls-container';
       controlsContainer.classList.add('controls-container');
 
-      // Initialize a counter for tabindex for sequential keyboard navigation.
-      let tabIndexCounter = 1;
-
       // Loop over controls data to create button elements for each control icon.
       controlsData.icons.forEach(function (icon, index) {
           var controlButton = document.createElement('button');
@@ -17,10 +14,8 @@ export function loadMainContentControls(db, controlsId) {
           controlButton.classList.add('control-button');
           // Title attribute serves as the tooltip providing description of the button's action.
           controlButton.setAttribute('title', icon.tooltip);
-          // Setting tabindex for logical keyboard navigation; incrementing with each icon.
-          controlButton.setAttribute('tabindex', `${tabIndexCounter++}`);
           // Use iconClass to render font icon. Icons must use classes instead of <img>, so alt attribute doesn't apply here.
-          controlButton.innerHTML = `<i class="${icon.iconClass} aria-hidden="true"></i>`;
+          controlButton.innerHTML = `<i class="${icon.iconClass}" aria-hidden="true"></i>`;
 
           // Add click event listener for icon actions.
           controlButton.addEventListener('click', function() {
