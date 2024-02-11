@@ -135,22 +135,24 @@
     </script>
     
     <!-- App container -->
-    <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
-        <div id="app-content" class="bg-dark text-white p-4 rounded-lg">
-            <!-- Menu container -->
-            <div id="menu-container" class="mb-3 mb-md-4 mb-lg-5"></div>
-            <!-- App title -->
-            <h1 id="app-title">Hello World</h1>
-            <!-- Main content -->
-            <div id="main-content">
-                <p>Here's a short message in the main content area.</p>
-                <!-- Button to open chat modal -->
-                <button class="ai-chat-button" data-bs-toggle="modal" data-bs-target="#chatModal"></button>
+    <nav aria-label="Main Navigation" id="main-navigation">
+        <div id="app-container" class="d-flex flex-column align-items-center justify-content-center vh-100">
+            <div id="app-content" class="bg-dark text-white p-4 rounded-lg">
+                <!-- Menu container -->
+                <div id="menu-container" class="mb-3 mb-md-4 mb-lg-5"></div>
+                <!-- App title -->
+                <h1 id="app-title">Hello World</h1>
+                <!-- Main content -->
+                <div id="main-content">
+                    <p>Here's a short message in the main content area.</p>
+                    <!-- Button to open chat modal -->
+                    <button class="ai-chat-button" data-bs-toggle="modal" data-bs-target="#chatModal" title="Open AI Chat">AI Chat</button>
+                </div>
+                <!-- Main content controls -->
+                <div id="main-content-controls"></div>
             </div>
-            <!-- Main content controls -->
-            <div id="main-content-controls"></div>
         </div>
-    </div>
+    </nav>
     
     <!-- Chat modal -->
     <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
@@ -166,8 +168,8 @@
                     <div class="row">
                         <!-- Chat conversations list -->
                         <div class="col-md-4 chat-conversations-list" style="border-right: 1px solid #ddd;">
-                            <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(1)">Conversation 1</button>
-                            <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(2)">Conversation 2</button>
+                            <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(1)" title="Switch to Conversation 1">Conversation 1</button>
+                            <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(2)" title="Switch to Conversation 2">Conversation 2</button>
                         </div>
                         <!-- Chat window -->
                         <div class="col-md-8">
@@ -178,19 +180,19 @@
                                 <div class="card-body chat-body"></div>
                                 <!-- Chat input group -->
                                 <div class="input-group chat-input-group mb-3">
-                                    <button class="chat-voice-btn" onclick="startVoiceToText()">
+                                    <button class="chat-voice-btn" onclick="startVoiceToText()" title="Start Voice Input">
                                         <i class="fas fa-microphone"></i>
                                     </button>
-                                    <input type="text" class="chat-message-input form-control" placeholder="Type your message here...">
-                                    <button class="chat-send-btn" onclick="sendMessage()">
+                                    <input type="text" class="chat-message-input form-control" placeholder="Type your message here..." title="Type your message here...">
+                                    <button class="chat-send-btn" onclick="sendMessage()" title="Send Message">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
                                 </div>
                                 <!-- Suggested chat messages -->
                                 <div class="chat-suggested-messages">
-                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Hello!')">Hello!</button>
-                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Can you help me?')">Can you help me?</button>
-                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Thank you!')">Thank you!</button>
+                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Hello!')" title="Send 'Hello!'">Hello!</button>
+                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Can you help me?')" title="Send 'Can you help me?'">Can you help me?</button>
+                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Thank you!')" title="Send 'Thank you!'">Thank you!</button>
                                 </div>
                             </div>
                         </div>
@@ -245,5 +247,11 @@
             chatBody.innerHTML = `<p>Loading conversation ${conversationId}…</p>`;
         }
     </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>Author: Your Name</p>
+        <p>&copy; 2024 Your Company</p>
+    </footer>
 </body>
 </html>
