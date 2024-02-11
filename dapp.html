@@ -158,7 +158,7 @@
     <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="background-color: var(--neutral-color); color: var(--light-color);">
                     <h5 class="modal-title" id="chatModalLabel">AI Chat</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -167,32 +167,47 @@
                 <div class="modal-body">
                     <div class="row">
                         <!-- Chat conversations list -->
-                        <div class="col-md-4 chat-conversations-list" style="border-right: 1px solid #ddd;">
+                        <div class="col-md-4 chat-conversations-list" style="border-right: 1px solid var(--accent-color);">
                             <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(1)" title="Switch to Conversation 1">Conversation 1</button>
                             <button class="chat-conversation-btn w-100 my-1" onclick="switchConversation(2)" title="Switch to Conversation 2">Conversation 2</button>
                         </div>
                         <!-- Chat window -->
                         <div class="col-md-8">
-                            <div class="card chat-window" id="chat-window">
-                                <div class="card-header chat-header d-flex justify-content-between align-items-center p-3">
+                            <div class="card chat-window" id="chat-window" style="border: 1px solid var(--accent-color);">
+                                <div class="card-header chat-header d-flex justify-content-between align-items-center p-3" style="background-color: var(--neutral-color); color: var(--light-color);">
                                     <p class="mb-0 fw-bold">Selected Conversation</p>
                                 </div>
-                                <div class="card-body chat-body"></div>
+                                <div class="card-body chat-body">
+                                    <!-- Default and suggested responses -->
+                                    <div class="chat-suggested-messages">
+                                        <!-- Default responses -->
+                                        <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Hello!')" title="Send 'Hello!'">Hello!</button>
+                                        <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Can you help me?')" title="Send 'Can you help me?'">Can you help me?</button>
+                                        <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Thank you!')" title="Send 'Thank you!'">Thank you!</button>
+                                        <!-- Suggested responses -->
+                                        <!-- These will be dynamically loaded -->
+                                    </div>
+                                </div>
                                 <!-- Chat input group -->
                                 <div class="input-group chat-input-group mb-3">
                                     <button class="chat-voice-btn" onclick="startVoiceToText()" title="Start Voice Input">
                                         <i class="fas fa-microphone"></i>
                                     </button>
-                                    <input type="text" class="chat-message-input form-control" placeholder="Type your message here..." title="Type your message here...">
+                                    <input type="text" class="chat-message-input form-control" placeholder="Type your message here..." title="Type your message here..." style="background-color: var(--light-color); color: var(--dark-color); border-top: none; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
                                     <button class="chat-send-btn" onclick="sendMessage()" title="Send Message">
                                         <i class="fas fa-paper-plane"></i>
                                     </button>
                                 </div>
-                                <!-- Suggested chat messages -->
-                                <div class="chat-suggested-messages">
-                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Hello!')" title="Send 'Hello!'">Hello!</button>
-                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Can you help me?')" title="Send 'Can you help me?'">Can you help me?</button>
-                                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="sendMessage('Thank you!')" title="Send 'Thank you!'">Thank you!</button>
+                                <!-- Dropdown for selecting different responses -->
+                                <div class="dropdown mt-3">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="responseDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--neutral-color); color: var(--light-color); width: 100%;">
+                                        Choose a Different Response
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="responseDropdown">
+                                        <li><a class="dropdown-item" href="#" onclick="loadSuggestions('greetings')">Greetings</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="loadSuggestions('questions')">Questions</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="loadSuggestions('appreciation')">Appreciation</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -201,6 +216,69 @@
             </div>
         </div>
     </div>
+
+
+
+<script>
+    // Function to load suggestions based on selected category
+    function loadSuggestions(category) {
+        // You need to implement logic to fetch suggestions based on the selected category
+        // For now, let's assume we have predefined sets of suggestions for different categories
+        var suggestions = {
+            'greetings': ["Hello!", "Hi!", "Good morning!"],
+            'questions': ["How can I help you?", "What do you need assistance with?", "Do you have any questions?"],
+            'appreciation': ["Thank you!", "I appreciate your help.", "That's very helpful."]
+        };
+
+        var newSuggestions = suggestions[category];
+
+        // Clear existing suggestions
+        var suggestionsContainer = document.querySelector('.chat-suggested-messages');
+        suggestionsContainer.innerHTML = '';
+
+        // Add new suggestions
+        newSuggestions.forEach(function(suggestion) {
+            var button = document.createElement('button');
+            button.classList.add('btn', 'btn-outline-secondary', 'btn-sm', 'm-1');
+            button.textContent = suggestion;
+            button.setAttribute('onclick', "sendMessage('" + suggestion + "')");
+            button.setAttribute('title', "Send '" + suggestion + "'");
+            suggestionsContainer.appendChild(button);
+        });
+    }
+</script>
+
+
+    <script>
+        // Function to load suggestions based on selected category
+        function loadSuggestions(category) {
+            // You need to implement logic to fetch suggestions based on the selected category
+            // For now, let's assume we have predefined sets of suggestions for different categories
+            var suggestions = {
+                'greetings': ["Hello!", "Hi!", "Good morning!"],
+                'questions': ["How can I help you?", "What do you need assistance with?", "Do you have any questions?"],
+                'appreciation': ["Thank you!", "I appreciate your help.", "That's very helpful."]
+            };
+
+            var newSuggestions = suggestions[category];
+
+            // Clear existing suggestions
+            var suggestionsContainer = document.querySelector('.chat-suggested-messages');
+            suggestionsContainer.innerHTML = '';
+
+            // Add new suggestions
+            newSuggestions.forEach(function(suggestion) {
+                var button = document.createElement('button');
+                button.classList.add('btn', 'btn-outline-secondary', 'btn-sm', 'm-1');
+                button.textContent = suggestion;
+                button.setAttribute('onclick', "sendMessage('" + suggestion + "')");
+                button.setAttribute('title', "Send '" + suggestion + "'");
+                suggestionsContainer.appendChild(button);
+            });
+        }
+    </script>
+
+
     
     <!-- External libraries and scripts -->
     <script src="./lib/vibrant/vibrant.min.js"></script>
