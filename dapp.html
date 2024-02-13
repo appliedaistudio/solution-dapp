@@ -200,7 +200,7 @@
                                     <!-- Suggested responses -->
                                     <!-- These will be dynamically loaded -->
                                 </div>
-                                
+
                                 <!-- Dropdown for selecting different responses -->
                                 <div class="dropdown mt-3">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="responseDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--neutral-color); color: var(--light-color); width: 100%;">
@@ -219,38 +219,6 @@
             </div>
         </div>
     </div>
-
-
-
-<script>
-    // Function to load suggestions based on selected category
-    function loadSuggestions(category) {
-        // You need to implement logic to fetch suggestions based on the selected category
-        // For now, let's assume we have predefined sets of suggestions for different categories
-        var suggestions = {
-            'greetings': ["Hello!", "Hi!", "Good morning!"],
-            'questions': ["How can I help you?", "What do you need assistance with?", "Do you have any questions?"],
-            'appreciation': ["Thank you!", "I appreciate your help.", "That's very helpful."]
-        };
-
-        var newSuggestions = suggestions[category];
-
-        // Clear existing suggestions
-        var suggestionsContainer = document.querySelector('.chat-suggested-messages');
-        suggestionsContainer.innerHTML = '';
-
-        // Add new suggestions
-        newSuggestions.forEach(function(suggestion) {
-            var button = document.createElement('button');
-            button.classList.add('btn', 'btn-outline-secondary', 'btn-sm', 'm-1');
-            button.textContent = suggestion;
-            button.setAttribute('onclick', "sendMessage('" + suggestion + "')");
-            button.setAttribute('title', "Send '" + suggestion + "'");
-            suggestionsContainer.appendChild(button);
-        });
-    }
-</script>
-
 
     <script>
         // Function to load suggestions based on selected category
