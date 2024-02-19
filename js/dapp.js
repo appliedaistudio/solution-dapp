@@ -76,9 +76,6 @@ async function loadChatConversation(data_name, nodeName, conversationId) {
             chatWindow.appendChild(document.createElement('br')); // Add line break after each message
         });
 
-        // Show the modal if not already visible
-        // Implementation depends on how your modal is being handled
-        $('#chatModal').modal('show'); // Example for Bootstrap-based modal
     } catch (error) {
         console.error('Error loading conversation:', error);
     }
