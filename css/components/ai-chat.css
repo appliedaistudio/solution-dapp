@@ -1,6 +1,7 @@
 /* Updated ai-chat.css incorporating color variables from variables.css */
 .chat-window {
     border: 1px solid var(--accent-color);
+    width: 100%;
 }
 
 .chat-window .chat-body {
