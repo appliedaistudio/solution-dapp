@@ -3,3 +3,49 @@ body, html {
     margin: 0;
     color: var(--font-color); /* Define the font color once here */
 }
+
+/* Standard table styling */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff; /* White background for table */
+}
+
+/* Table headers with a distinct background color */
+.table thead th {
+    background-color: #007bff; /* Bootstrap primary color - adjust as needed */
+    color: #fff; /* White text color */
+    border-bottom: 2px solid #006fe6; /* Slightly darker border color for a subtle effect */
+    padding: 0.75rem;
+    text-align: left;
+}
+
+/* Table cells styling */
+.table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Table row styling for hover effect */
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Light grey background for hover effect */
+}
+
+/* Zebra-striping for table rows */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .05); /* Light zebra striping */
+}
+
+/* Add more customization like border radius if needed */
+.table th:first-child,
+.table td:first-child {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.table th:last-child,
+.table td:last-child {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
