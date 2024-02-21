@@ -6,9 +6,18 @@ const optionFunctionMappings = {
     'Logout': {
         func: logoutUser, // The function to execute
         params: [] // Parameters to pass to the function
+    },
+    'Tasks: From Idea to Action': {
+        func: navigateToScreen, // The function to execute
+        params: 'https://www.appliedai.studio/' // Directly provide the URL string
     }
     // Add other options here as needed
 };
+
+function navigateToScreen(url) {
+    window.location.href = url; // Change the URL to navigate to the new screen
+}
+
 
 // Function to load menu dynamically
 export function loadMenu(db, menuId) {

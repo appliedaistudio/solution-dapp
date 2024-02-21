@@ -18,7 +18,7 @@
 
 /* Styles for the chat body container */
 .chat-window .chat-body {
-    max-height: 250px; /* Set maximum height for the chat body */
+    max-height: 450px; /* Set maximum height for the chat body */
     overflow-y: auto; /* Enable vertical scrolling for overflow */
 }
 
@@ -93,22 +93,6 @@
 .chat-suggested-messages button:hover {
     background-color: var(--accent-color); /* Hover background color for suggested messages buttons */
     color: var(--light-color); /* Hover text color for suggested messages buttons */
-}
-
-/* Styles for dropdown menu */
-.dropdown-menu {
-    background-color: var(--neutral-color); /* Background color for dropdown menu */
-    color: var(--light-color); /* Text color for dropdown menu */
-}
-
-/* Styles for dropdown items */
-.dropdown-item {
-    color: var(--light-color); /* Text color for dropdown items */
-}
-
-/* Hover styles for dropdown items */
-.dropdown-item:hover {
-    background-color: var(--accent-color); /* Hover background color for dropdown items */
 }
 
 /* Styles for chat input group */
