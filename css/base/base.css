@@ -1,21 +1,35 @@
 body, html {
     height: 100%;
     margin: 0;
+<<<<<<< HEAD
     color: var(--font-color); /* Define the font color once here */
+=======
+    color: var(--font-color); /* Use the font color variable */
+>>>>>>> 47a730615cce5501eddbc7046b203233f18720c9
 }
 
 /* Standard table styling */
 .table {
     width: 100%;
     margin-bottom: 1rem;
+<<<<<<< HEAD
     background-color: #fff; /* White background for table */
+=======
+    background-color: var(--light-color); /* Use light color variable for table background */
+>>>>>>> 47a730615cce5501eddbc7046b203233f18720c9
 }
 
 /* Table headers with a distinct background color */
 .table thead th {
+<<<<<<< HEAD
     background-color: #007bff; /* Bootstrap primary color - adjust as needed */
     color: #fff; /* White text color */
     border-bottom: 2px solid #006fe6; /* Slightly darker border color for a subtle effect */
+=======
+    background-color: var(--neutral-color); /* Use neutral color variable for table header background */
+    color: var(--light-color); /* White text color, already aligned with the light color variable */
+    border-bottom: 2px solid darken(var(--neutral-color), 10%); /* Use a darker variant of the neutral color for the border. Note: CSS doesn't support darken() natively; consider a pre-processor like SASS or a different approach for dynamic darkening */
+>>>>>>> 47a730615cce5501eddbc7046b203233f18720c9
     padding: 0.75rem;
     text-align: left;
 }
@@ -24,20 +38,35 @@ body, html {
 .table td {
     padding: 0.75rem;
     vertical-align: middle;
+<<<<<<< HEAD
     border-top: 1px solid #dee2e6;
+=======
+    border-top: 1px solid #dee2e6; /* Consider creating a variable for border colors if reused */
+>>>>>>> 47a730615cce5501eddbc7046b203233f18720c9
 }
 
 /* Table row styling for hover effect */
 .table tbody tr:hover {
+<<<<<<< HEAD
     background-color: #f1f1f1; /* Light grey background for hover effect */
+=======
+    background-color: rgba(0, 0, 0, .05); /* Consider turning this into a variable if the color is reused or for theming purposes */
+>>>>>>> 47a730615cce5501eddbc7046b203233f18720c9
 }
 
 /* Zebra-striping for table rows */
 .table-striped tbody tr:nth-of-type(odd) {
+<<<<<<< HEAD
     background-color: rgba(0, 0, 0, .05); /* Light zebra striping */
 }
 
 /* Add more customization like border radius if needed */
+=======
+    background-color: rgba(0, 0, 0, .05); /* Similar to the hover effect, consider a variable here */
+}
+
+/* Customizations like border radius */
+>>>>>>> 47a730615cce5501eddbc7046b203233f18720c9
 .table th:first-child,
 .table td:first-child {
     border-top-left-radius: 0.25rem;
