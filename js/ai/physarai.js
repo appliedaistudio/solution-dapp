@@ -1,15 +1,17 @@
 // Import configuration module
 import config from './config.js';
 
-// Define log function
-function log(message) {
-    if (config.debug) {
+// Log a message if the current verbosity level is equal to or higher than the specified minimum verbosity level
+function log(message, currentVerbosity, minVerbosity) {
+    if (currentVerbosity >= minVerbosity && config.debug) { // Log only if verbosity level is equal to or higher than the specified minimum verbosity level and debug mode is enabled in config
         console.log(message);
     }
 };
 
 // Function to interact with the Language Model (LLM)
 async function promptLLM(parameters) {
+    log("Entering promptLLM function", config.verbosityLevel, 3); // Log function entry with verbosity level 3
+
     try {
         // Check if all required parameters are provided
         if (!parameters.apiKey || !parameters.prompt || !parameters.endpoint || !parameters.model) {
@@ -39,15 +41,20 @@ async function promptLLM(parameters) {
 
         // Parse the response JSON and return the generated text
         const data = await response.json();
+
+        log("Exiting promptLLM function", config.verbosityLevel, 3); // Log function exit with verbosity level 3
+
         return data.choices[0].message.content;
     } catch (error) {
         // Log and handle errors
-        log('Error: ' + error);
+        log('PromptLLM error: ' + error, config.verbosityLevel, 2); // Log error with verbosity level 2
         return null;
     }
 };
 
 function generateLLMPrompt(tools) {
+    log("Entering generateLLMPrompt function", config.verbosityLevel, 3); // Log function entry with verbosity level 3
+
     // Define the template
     const template = `
     Answer the following questions and obey the following commands as best you can.
@@ -78,13 +85,18 @@ function generateLLMPrompt(tools) {
     Begin!`;
 
     prompt = template.trim();
-    log(`Generated LLM prompt: ${prompt}`);
+    
+    log(`Generated LLM prompt: ${prompt}`, config.verbosityLevel, 3); // Log generated LLM prompt with verbosity level 3
+    log("Exiting generateLLMPrompt function", config.verbosityLevel, 3); // Log function exit with verbosity level 3
 
     return prompt;
 };
 
 // Helper function to remove non-alphanumeric characters from text
 function removeNonAlphanumeric(text) {
+    log("Entering removeNonAlphanumeric function", config.verbosityLevel, 4); // Log function entry with verbosity level 4
+    log("Input text:", config.verbosityLevel, 4); // Log input text with verbosity level 4
+    log(text, config.verbosityLevel, 4); // Log input text with verbosity level 4
     let result = '';
     for (let char of text) {
         // Check if the character is alphanumeric or a space
@@ -92,11 +104,17 @@ function removeNonAlphanumeric(text) {
             result += char;
         }
     }
+    log("Output text:", config.verbosityLevel, 4); // Log output text with verbosity level 4
+    log(result, config.verbosityLevel, 4); // Log output text with verbosity level 4
+    log("Exiting removeNonAlphanumeric function", config.verbosityLevel, 4); // Log function exit with verbosity level 4
     return result;
 };
 
 // Helper function to extract action and input from text
 function extract_action_and_input(text) {
+    log("Entering extract_action_and_input function", config.verbosityLevel, 4); // Log function entry with verbosity level 4
+    log("Input text:", config.verbosityLevel, 4); // Log input text with verbosity level 4
+    log(text, config.verbosityLevel, 4); // Log input text with verbosity level 4
     const actionIndex = text.indexOf("Action:");
     const inputIndex = text.indexOf("Action Input:");
 
@@ -115,15 +133,32 @@ function extract_action_and_input(text) {
         input = removeNonAlphanumeric(input);
     }
 
+    log("Action:", config.verbosityLevel, 4); // Log action with verbosity level 4
+    log(action, config.verbosityLevel, 4); // Log action with verbosity level 4
+    log("Input:", config.verbosityLevel, 4); // Log input with verbosity level 4
+    log(input, config.verbosityLevel, 4); // Log input with verbosity level 4
+    log("Exiting extract_action_and_input function", config.verbosityLevel, 4); // Log function exit with verbosity level 4
     return [action, input];
 };
 
+
 function extractLastMessage(outcome) {
+    log("Entering extractLastMessage function", config.verbosityLevel, 4); // Log function entry with verbosity level 4
+    log("Outcome:", config.verbosityLevel, 4); // Log outcome with verbosity level 4
+    log(outcome, config.verbosityLevel, 4); // Log outcome with verbosity level 4
+
     // Check if outcome is an array and is not empty
     if (Array.isArray(outcome) && outcome.length > 0) {
         // Return the last message in the outcome array
-        return outcome[outcome.length - 1];
+        const lastMessage = outcome[outcome.length - 1];
+        log("Last Message:", config.verbosityLevel, 4); // Log last message with verbosity level 4
+        log(lastMessage, config.verbosityLevel, 4); // Log last message with verbosity level 4
+        log("Exiting extractLastMessage function", config.verbosityLevel, 4); // Log function exit with verbosity level 4
+        return lastMessage;
     } else {
+        // Log that the outcome given is not valid
+        log("Cannot extract the last message from an invalid outcome", config.verbosityLevel, 2); // Log error with verbosity level 2
+        log("Exiting extractLastMessage function", config.verbosityLevel, 4); // Log function exit with verbosity level 4
         // Return null if the outcome is not valid
         return null;
     }
@@ -132,11 +167,11 @@ function extractLastMessage(outcome) {
 function extractFinalObservation(message) {
     try {
         // Log the entire message object
-        log('Message object:', message);
+        log('Message object:', message, config.verbosityLevel, 4); // Log message object with verbosity level 4
 
         // Extract observation from the content string
         const content = message.content;
-        log('Message object content:', content);
+        log('Message object content:', content, config.verbosityLevel, 4); // Log message object content with verbosity level 4
         
         const observationPrefix = 'Observation: ';
         if (content && content.startsWith(observationPrefix)) {
@@ -147,7 +182,7 @@ function extractFinalObservation(message) {
         }
     } catch (error) {
         // Log and handle errors
-        log('Error extracting final observation:', error);
+        log('Error extracting final observation:' + error, config.verbosityLevel, 2); // Log error with verbosity level 2
         return null;
     }
 };
@@ -156,11 +191,11 @@ function extractFinalObservation(message) {
 async function formatObservation(output, schema) {
     try {
         // Log output and schema at the start of the function
-        log("Output: " + output);
-        log("Schema: " + JSON.stringify(schema));
+        log("Output: " + output, config.verbosityLevel, 3); // Log output with verbosity level 3
+        log("Schema: " + JSON.stringify(schema), config.verbosityLevel, 3); // Log schema with verbosity level 3
 
         // Enter formatObservation function
-        log("Entering formatObservation function");
+        log("Entering formatObservation function", config.verbosityLevel, 4); // Log function entry with verbosity level 4
 
         const prompt = `Format the final response to Human according to the following schema:\n${JSON.stringify(schema)}`;
         
@@ -173,17 +208,17 @@ async function formatObservation(output, schema) {
         });
 
         // Log the response from LLM
-        log("Response from LLM: " + response);
+        log("Response from LLM: " + response, config.verbosityLevel, 4); // Log response from LLM with verbosity level 4
 
         // Parse the response as JSON
         const formattedObservation = JSON.parse(response);
 
         // Exit formatObservation function
-        log("Exiting formatObservation function");
+        log("Exiting formatObservation function", config.verbosityLevel, 4); // Log function exit with verbosity level 4
         return formattedObservation;
     } catch (error) {
         // Log and handle errors
-        log('Error: ' + error);
+        log('Error: ' + error, config.verbosityLevel, 2); // Log error with verbosity level 2
         return null;
     }
 };
@@ -191,7 +226,7 @@ async function formatObservation(output, schema) {
 // Stream agent function
 async function Stream_agent(tools, prompt, outputSchema) {
     // Enter Stream_agent function
-    log("Entering Stream_agent function");
+    log("Entering Stream_agent function", config.verbosityLevel, 1); // Log function entry with verbosity level 1
 
     // Check if the output schema contains required fields
     if (!outputSchema.properties.hasOwnProperty("success") || !outputSchema.properties.hasOwnProperty("errorMessage")) {
@@ -208,7 +243,7 @@ async function Stream_agent(tools, prompt, outputSchema) {
 
     for (let i = 0; i < 3; i++) {
         // Log the current loop run number
-        log(`Loop run number: ${i+1}`);
+        log(`Loop run number: ${i+1}`, config.verbosityLevel, 1); // Log current loop run number with verbosity level 1
 
         // Get response from LLM
         const response = await promptLLM({
@@ -219,29 +254,29 @@ async function Stream_agent(tools, prompt, outputSchema) {
         });
 
         // Log the response from LLM
-        log("Response from LLM: " + response);
+        log("Response from LLM: " + response, config.verbosityLevel, 1); // Log response from LLM with verbosity level 1
 
         // Extract action and input from the response
         const [action, action_input] = extract_action_and_input(response);
 
         // Log the action
-        log(`Action: ${action}`);
+        log(`Action: ${action}`, config.verbosityLevel, 1); // Log action with verbosity level 1
 
         // Perform action based on extracted information
         const tool = tools.find(tool => tool.name === action);
         if (tool) {
             const observation = tool.func(action_input);
             // Log the observation
-            log("Observation: " + observation);
+            log("Observation: " + observation, config.verbosityLevel, 1); // Log observation with verbosity level 1
             messages.push({ "role": "system", "content": response });
             messages.push({ "role": "user", "content": "Observation: " + observation });
         } else if (action === "Response To Human") {
             // Log the response to human
-            log("Response: " + action_input);
+            log("Response: " + action_input, config.verbosityLevel, 1); // Log response to human with verbosity level 1
             break;
         } else {
             // Log invalid action
-            log("Invalid action: " + action);
+            log("Invalid action: " + action, config.verbosityLevel, 1); // Log invalid action with verbosity level 1
             break;
         }
 
@@ -250,38 +285,38 @@ async function Stream_agent(tools, prompt, outputSchema) {
     }
 
     // Log the outcome
-    log("Final messages outcome: " + JSON.stringify(messages));
+    log("Final messages outcome: " + JSON.stringify(messages), config.verbosityLevel, 1); // Log final messages outcome with verbosity level 1
 
     // Extract the last message
     const lastMessage = extractLastMessage(messages);
 
     // Log the last message
-    log("Last Message: " + JSON.stringify(lastMessage));
+    log("Last Message: " + JSON.stringify(lastMessage), config.verbosityLevel, 1); // Log last message with verbosity level 1
 
     // Extract the final observation
     const finalObservation = extractFinalObservation(lastMessage);
 
     // Log the final observation
-    log("Final Observation: " + finalObservation);
+    log("Final Observation: " + finalObservation, config.verbosityLevel, 1); // Log final observation with verbosity level 1
 
     // Format the final observation
     const formattedFinalObservation = await formatObservation(finalObservation, outputSchema);
 
     // Log the formatted final observation
-    log("Formatted Final Observation: " + JSON.stringify(formattedFinalObservation));
+    log("Formatted Final Observation: " + JSON.stringify(formattedFinalObservation), config.verbosityLevel, 1); // Log formatted final observation with verbosity level 1
 
     // Validate the final formatted observation against the output schema
     const validationResult = tv4.validate(formattedFinalObservation, outputSchema);
     if (validationResult) {
         // Log the formatted final observation validation success
-        log("Formatted final observation validation succeeded");
+        log("Formatted final observation validation succeeded", config.verbosityLevel, 1); // Log validation success with verbosity level 1
 
         // Exit Stream_agent function
-        log("Exiting Stream_agent function");
+        log("Exiting Stream_agent function", config.verbosityLevel, 1); // Log function exit with verbosity level 1
         return formattedFinalObservation;
     } else {
         // Log validation error
-        log("Validation error:", tv4.error);
+        log("Validation error:" + tv4.error, config.verbosityLevel, 1); // Log validation error with verbosity level 1
         // Return a result conforming to the output schema with error information
         const errorResult = {
             "success": false,
@@ -295,7 +330,7 @@ async function Stream_agent(tools, prompt, outputSchema) {
 // Example usage of Stream_agent function
 async function main() {
     // Enter main function
-    log("Entering main function");
+    log("Entering main function", config.verbosityLevel, 1); // Log function entry with verbosity level 1
 
     // Function to search Wikipedia
     function searchWikipedia(searchTerm) {
@@ -346,7 +381,7 @@ async function main() {
     const outcome = await Stream_agent(tools, prompt, outputSchema);
 
     // Exit main function
-    log("Exiting main function");
+    log("Exiting main function", config.verbosityLevel, 1); // Log function exit with verbosity level 1
 };
 
 // Call the main function
