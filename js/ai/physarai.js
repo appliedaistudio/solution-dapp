@@ -275,9 +275,20 @@ async function Stream_agent(tools, prompt, outputSchema) {
     // Log the formatted final observation
     log("Formatted Final Observation: " + JSON.stringify(formattedFinalObservation));
 
-    // Exit Stream_agent function
-    log("Exiting Stream_agent function");
-    return messages;
+    // Validate the final formatted observation against the output schema
+    const validationResult = tv4.validate(formattedFinalObservation, outputSchema);
+    if (validationResult) {
+        // Log the formatted final observation
+        log("Formatted final observation validation succeeded");
+
+        // Exit Stream_agent function
+        log("Exiting Stream_agent function");
+        return formattedFinalObservation;
+    } else {
+        // Log validation error
+        log("Validation error:", tv4.error);
+        throw new Error("Formatted final observation validation failed");
+    }
 };
 
 // Example usage of Stream_agent function
