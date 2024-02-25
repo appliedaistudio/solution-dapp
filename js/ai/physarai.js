@@ -233,14 +233,9 @@ async function Stream_agent(tools, prompt, outputSchema) {
         log(`Action: ${action}`);
 
         // Perform action based on extracted information
-        if (action === "Search") {
-            const observation = searchWikipedia(action_input);
-            // Log the observation
-            log("Observation: " + observation);
-            messages.push({ "role": "system", "content": response });
-            messages.push({ "role": "user", "content": "Observation: " + observation });
-        } else if (action === "Calculator") {
-            const observation = calculator(action_input);
+        const tool = tools.find(tool => tool.name === action);
+        if (tool) {
+            const observation = tool.func(action_input);
             // Log the observation
             log("Observation: " + observation);
             messages.push({ "role": "system", "content": response });
