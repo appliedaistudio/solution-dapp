@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysarAI Test Application</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/ai/physarai.js"></script>
+</head>
+<body>
+    <div class="container" id="app-title">
+        <h1>PhysarAI</h1>
+    </div>
+    <div class="container" id="main-content">
+        <input type="text" id="userInput" placeholder="Ask me anything...">
+        <button onclick="queryOpenAI()">Submit</button>
+        <div id="response"></div>
+    </div>
+    <!-- Any additional JS scripts needed for the page -->
+</body>
+</html>
