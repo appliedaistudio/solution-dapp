@@ -47,16 +47,6 @@ async function promptLLM(parameters) {
     }
 };
 
-// Function to search Wikipedia
-function searchWikipedia(searchTerm) {
-    return "Ronny, Bobby, Ricky, and Mike";
-};
-
-// Calculator function with real implementation
-function calculator(expression) {
-    return 16;
-};
-
 function generateLLMPrompt(tools) {
     // Define the template
     const template = `
@@ -203,6 +193,11 @@ async function Stream_agent(tools, prompt, outputSchema) {
     // Enter Stream_agent function
     log("Entering Stream_agent function");
 
+    // Check if the output schema contains required fields
+    if (!outputSchema.properties.hasOwnProperty("success") || !outputSchema.properties.hasOwnProperty("errorMessage")) {
+        throw new Error("Output schema must contain properties for 'success' and 'errorMessage'");
+    }
+
     // Generate the LLM prompt
     const System_prompt = generateLLMPrompt(tools);
 
@@ -278,7 +273,7 @@ async function Stream_agent(tools, prompt, outputSchema) {
     // Validate the final formatted observation against the output schema
     const validationResult = tv4.validate(formattedFinalObservation, outputSchema);
     if (validationResult) {
-        // Log the formatted final observation
+        // Log the formatted final observation validation success
         log("Formatted final observation validation succeeded");
 
         // Exit Stream_agent function
@@ -287,7 +282,13 @@ async function Stream_agent(tools, prompt, outputSchema) {
     } else {
         // Log validation error
         log("Validation error:", tv4.error);
-        throw new Error("Formatted final observation validation failed");
+        // Return a result conforming to the output schema with error information
+        const errorResult = {
+            "success": false,
+            "outputValue": null,
+            "errorMessage": tv4.error.message || "Unknown validation error"
+        };
+        return errorResult;
     }
 };
 
@@ -295,6 +296,16 @@ async function Stream_agent(tools, prompt, outputSchema) {
 async function main() {
     // Enter main function
     log("Entering main function");
+
+    // Function to search Wikipedia
+    function searchWikipedia(searchTerm) {
+        return "Ronny, Bobby, Ricky, and Mike";
+    };
+
+    // Calculator function with real implementation
+    function calculator(expression) {
+        return 16;
+    };
 
     // Define an array of tool objects
     const tools = [
