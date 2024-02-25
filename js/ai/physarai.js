@@ -318,12 +318,18 @@ async function main() {
         "$schema": "http://json-schema.org/draft-07/schema",
         "type": "object",
         "properties": {
+            "success": {
+                "type": "boolean"
+            },
             "outputValue": {
                 "type": "integer"
+            },
+            "errorMessage": {
+                "type": "string"
             }
         },
-        "required": ["outputValue"]
-    };
+        "required": ["outputValue", "success"]
+    };    
 
     // Call Stream_agent function
     const outcome = await Stream_agent(tools, prompt, outputSchema);
