@@ -57,36 +57,41 @@ function calculator(expression) {
     return 16;
 };
 
-// Stub for the System_prompt
-const System_prompt = `
-Answer the following questions and obey the following commands as best you can.
+function generateLLMPrompt(tools) {
+    // Define the template
+    const template = `
+    Answer the following questions and obey the following commands as best you can.
+    
+    You have access to the following tools:
+    ${tools.map(tool => `\n${tool.name}: ${tool.description}`).join('')}
+    
+    Response To Human: When you need to respond to the human you are talking to.
+    
+    You will receive a message from the human, then you should start a loop and do one of two things
+    
+    Option 1: You use a tool to answer the question.
+    For this, you should use the following format:
+    Thought: you should always think about what to do
+    Action: the action to take, should be one of [${tools.map(tool => tool.name).join(', ')}]
+    Action Input: "the input to the action, to be sent to the tool"
+    
+    After this, the human will respond with an observation, and you will continue.
+    
+    Option 2: You respond to the human.
+    For this, you should use the following format:
+    Action: Response To Human
+    Action Input: "your response to the human, summarizing what you did and what you learned"
+    
+    Preface action with "Action:" place the alphanumeric name of the action immediately after followed by a line feed
+    Preface action input with "Action Input:". place the input value in quotes immediately after followed by a line feed
+    
+    Begin!`;
 
-You have access to the following tools:
+    prompt = template.trim();
+    log(`Generated LLM prompt: ${prompt}`);
 
-Search: useful for when you need to answer questions about current events. You should ask targeted questions.
-Calculator: Useful for when you need to answer questions about math. Use python code, eg: 2 + 2
-Response To Human: When you need to respond to the human you are talking to.
-
-You will receive a message from the human, then you should start a loop and do one of two things
-
-Option 1: You use a tool to answer the question.
-For this, you should use the following format:
-Thought: you should always think about what to do
-Action: the action to take, should be one of [Search, Calculator]
-Action Input: "the input to the action, to be sent to the tool"
-
-After this, the human will respond with an observation, and you will continue.
-
-Option 2: You respond to the human.
-For this, you should use the following format:
-Action: Response To Human
-Action Input: "your response to the human, summarizing what you did and what you learned"
-
-Preface action with "Action:" place the alphanumeric name of the action immediately after followed by a line feed
-Preface action input with "Action Input:". place the input value in quotes immediately after followed by a line feed
-
-Begin!
-`;
+    return prompt;
+};
 
 // Helper function to remove non-alphanumeric characters from text
 function removeNonAlphanumeric(text) {
@@ -194,9 +199,12 @@ async function formatObservation(output, schema) {
 };
 
 // Stream agent function
-async function Stream_agent(prompt) {
+async function Stream_agent(tools, prompt, outputSchema) {
     // Enter Stream_agent function
     log("Entering Stream_agent function");
+
+    // Generate the LLM prompt
+    const System_prompt = generateLLMPrompt(tools);
 
     let messages = [
         { "role": "system", "content": System_prompt },
@@ -266,18 +274,6 @@ async function Stream_agent(prompt) {
     // Log the final observation
     log("Final Observation: " + finalObservation);
 
-    // Define the desired JSON schema
-    const outputSchema = {
-        "$schema": "http://json-schema.org/draft-07/schema",
-        "type": "object",
-        "properties": {
-            "outputValue": {
-                "type": "integer"
-            }
-        },
-        "required": ["outputValue"]
-    };
-
     // Format the final observation
     const formattedFinalObservation = await formatObservation(finalObservation, outputSchema);
 
@@ -294,12 +290,41 @@ async function main() {
     // Enter main function
     log("Entering main function");
 
+    // Define an array of tool objects
+    const tools = [
+        {
+            name: "Search",
+            func: searchWikipedia,
+            description: "Useful for when you need to answer questions about current events. You should ask targeted questions."
+        },
+        {
+            name: "Calculator",
+            func: calculator,
+            description: "Useful for when you need to answer questions about math. Use python code, eg: 2 + 2"
+        }
+    ];
+
+    // Define the desired operation
+    const prompt = "what is the square of the number of new openAI board members"
+
+    // Define the desired JSON schema
+    const outputSchema = {
+        "$schema": "http://json-schema.org/draft-07/schema",
+        "type": "object",
+        "properties": {
+            "outputValue": {
+                "type": "integer"
+            }
+        },
+        "required": ["outputValue"]
+    };
+
     // Call Stream_agent function
-    const outcome = await Stream_agent("what is the square of the number of new openAI board members");
+    const outcome = await Stream_agent(tools, prompt, outputSchema);
 
     // Exit main function
     log("Exiting main function");
-}
+};
 
 // Call the main function
 main();
